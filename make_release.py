@@ -43,10 +43,14 @@ def get_name_release():
 
 name, release = get_name_release()
 
+# Because of the stupidity of the WordPress plugin registration system
+# the plugin directory ends with ``-1``
+name_release_dir = name + '-1'
+
 # Create release dir and move release files inside it
-os.mkdir(name)
+os.mkdir(name_release_dir)
 for p_file in REL_FILES:
-	shutil.copy(p_file, os.path.join(name, p_file))
+	shutil.copy(p_file, os.path.join(name_release_dir, p_file))
 
 
 # Create distribution package
@@ -55,7 +59,7 @@ d_package_path = '%s-%s.zip' % (name, release)
 d_package = zipfile.ZipFile(d_package_path, 'w', zipfile.ZIP_DEFLATED)
 
 for p_file in REL_FILES:
-	d_package.write(os.path.join(name, p_file))
+	d_package.write(os.path.join(name_release_dir, p_file))
 
 d_package.testzip()
 
@@ -68,5 +72,5 @@ d_package.close()
 
 # Remove the release dir
 
-shutil.rmtree(name)
+shutil.rmtree(name_release_dir)
 
