@@ -425,62 +425,74 @@ function bccl_set_license_options($cc_settings) {
     </div>
 
     <div class="wrap">
+
         <h2>'.__('Advanced Info', 'cc-configurator').'</h2>
         <p>'.__('Apart from the options above for the inclusion of licensing information in your blog, this plugin provides some <em>Template Tags</em>, which can be used in your theme templates. These are the following:', 'cc-configurator').'
         </p>
         
-        <ul>
-        
-            <li><strong>'.__('Text Hyperlink', 'cc-configurator').'</strong>
-            <ul>
-                <li><code>bccl_get_license_text_hyperlink()</code> - '.__('Returns the text hyperlink of your current license for use in the PHP code.', 'cc-configurator').'</li>
-                <li><code>bccl_license_text_hyperlink()</code> - '.__('Displays the text hyperlink.', 'cc-configurator').'</li>
-            </ul>
-            </li>
-            
-            <li><strong>'.__('Image Hyperlink', 'cc-configurator').'</strong>
-            <ul>
-                <li><code>bccl_get_license_image_hyperlink() - '.__('Returns the image hyperlink of the current license.', 'cc-configurator').'</li>
-                <li><code>bccl_license_image_hyperlink()</code> - '.__('Displays the image hyperlink of the current license.', 'cc-configurator').'</li>
-            </ul>
-            </li>
-            
-            <li><strong>'.__('License URIs', 'cc-configurator').'</strong>
-            <ul>
-                <li><code>bccl_get_license_url()</code> - '.__('Returns the license\'s URL.', 'cc-configurator').'</li>
-                <li><code>bccl_get_license_deed_url()</code> - '.__('Returns the license\'s Deed URL. Usually this is the same URI as returned by the bccl_get_license_url() function.', 'cc-configurator').'</li>
-            </ul>
-            </li>
-            
-            <li><strong>'.__('Full HTML Code', 'cc-configurator').'</strong>
-            <ul>
-                <li><code>bccl_get_full_html_license()</code> - '.__('Returns the full HTML code of the license. This includes the text and the image hyperlinks.', 'cc-configurator').'</li>
-                <li><code>bccl_full_html_license()</code> - '.__('Displays the full HTML code of the license. This includes the text and the image hyperlinks.', 'cc-configurator').'</li>
-            </ul>
-            </li>
-            
-            <li><strong>'.__('Complete License Block', 'cc-configurator').'</strong>
-            <ul>
-                <li><code>bccl_license_block($work, $css_class, $show_button)</code> - '.__('Displays a complete license block. This template tag can be used to publish specific original work under the current license or in order to display the license block at custom locations on your website. This function supports the following arguments', 'cc-configurator').':
-                
+        <table class="form-table">
+        <tbody>
+
+            <tr valign="top">
+            <th scope="row">'.__('Text Hyperlink', 'cc-configurator').'</th>
+            <td>
+                <code>bccl_get_license_text_hyperlink()</code> - '.__('Returns the text hyperlink of your current license for use in the PHP code.', 'cc-configurator').'
+                <br />
+                <code>bccl_license_text_hyperlink()</code> - '.__('Displays the text hyperlink.', 'cc-configurator').'
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Image Hyperlink', 'cc-configurator').'</th>
+            <td>
+                <code>bccl_get_license_image_hyperlink()</code> - '.__('Returns the image hyperlink of the current license.', 'cc-configurator').'
+                <br />
+                <code>bccl_license_image_hyperlink()</code> - '.__('Displays the image hyperlink of the current license.', 'cc-configurator').'
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('License URIs', 'cc-configurator').'</th>
+            <td>
+                <code>bccl_get_license_url()</code> - '.__('Returns the license\'s URL.', 'cc-configurator').'
+                <br />
+                <code>bccl_get_license_deed_url()</code> - '.__('Returns the license\'s Deed URL. Usually this is the same URI as returned by the bccl_get_license_url() function.', 'cc-configurator').'
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Full HTML Code', 'cc-configurator').'</th>
+            <td>
+                <code>bccl_get_full_html_license()</code> - '.__('Returns the full HTML code of the license. This includes the text and the image hyperlinks.', 'cc-configurator').'
+                <br />
+                <code>bccl_full_html_license()</code> - '.__('Displays the full HTML code of the license. This includes the text and the image hyperlinks.', 'cc-configurator').'
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Complete License Block', 'cc-configurator').'</th>
+            <td>
+                <code>bccl_license_block($work, $css_class, $show_button)</code> - '.__('Displays a complete license block. This template tag can be used to publish specific original work under the current license or in order to display the license block at custom locations on your website. This function supports the following arguments', 'cc-configurator').':
                 <ol>
                     <li><code>$work</code> ('.__('alphanumeric', 'cc-configurator').') : '.__('This argument is used to define the work to be licensed. Its use is optional, when the template tag is used in single-post view. If not defined, the user-defined settings for the default license block are used.', 'cc-configurator').'</li>
                     <li><code>$css_class</code> ('.__('alphanumeric', 'cc-configurator').') : '.__('This argument sets the name of the CSS class that will be used to format the license block. It is optional. If not defined, then the default class <em>cc-block</em> is used.', 'cc-configurator').'</li>
                     <li><code>$show_button</code> ('.__('alphanumeric', 'cc-configurator').') - ("default", "yes", "no") : '.__('This argument is optional. It can be used in order to control the appearance of the license icon.', 'cc-configurator').'</li>
                 </ol>
-                
-                </li>
-            </ul>
-            </li>
-            
-            <li><strong>'.__('Licence Documents', 'cc-configurator').'</strong>
-            <ul>
-                <li><code>bccl_license_summary($width, $height, $css_class)</code> - '.__('Displays the license\'s summary document in an <em>iframe</em>.', 'cc-configurator').'</li>
-                <li><code>bccl_license_legalcode($width, $height, $css_class)</code> - '.__('Displays the license\'s full legal code in an <em>iframe</em>.', 'cc-configurator').'</li>
-            </ul>
-            </li>
-    
-        </ul>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Licence Documents', 'cc-configurator').'</th>
+            <td>
+                <code>bccl_license_summary($width, $height, $css_class)</code> - '.__('Displays the license\'s summary document in an <em>iframe</em>.', 'cc-configurator').'
+                <br />
+                <code>bccl_license_legalcode($width, $height, $css_class)</code> - '.__('Displays the license\'s full legal code in an <em>iframe</em>.', 'cc-configurator').'
+            </td>
+            </tr>
+
+        </tbody>
+        </table>
+
     </div>
 
     ');
