@@ -205,13 +205,13 @@ function bccl_select_license() {
      * License selection using the partner interface.
      * http://wiki.creativecommons.org/Partner_Interface
      */
-    $partner = urlencode("WordPress/CC-Configurator Plugin");
-    $partner_icon_url = urlencode(get_bloginfo("url") . "/wp-admin/images/wordpress-logo.png");
+
+    $cc_partner_interface_url = "http://creativecommons.org/license/";
+    $partner = "WordPress/CC-Configurator Plugin";
+    $partner_icon_url = get_bloginfo("url") . "/wp-admin/images/wordpress-logo.png";
     $jurisdiction_choose = "1";
     $lang = get_bloginfo('language');
-    $exit_url = urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "&license_url=[license_url]&license_name=[license_name]&license_button=[license_button]&deed_url=[deed_url]&new_license=1");
-
-    $URI = htmlspecialchars("http://creativecommons.org/license/?partner=$partner&partner_icon_url=$partner_icon_url&jurisdiction_choose=$jurisdiction_choose&lang=$lang&exit_url=$exit_url");
+    $exit_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "&license_url=[license_url]&license_name=[license_name]&license_button=[license_button]&deed_url=[deed_url]&new_license=1";
 
     print('
     <div class="wrap">
@@ -221,7 +221,18 @@ function bccl_select_license() {
 
         <h2>'.__('Select License', 'cc-configurator').'</h2>
         <p>'.__('A license has not been set for your content. By pressing the following link you will be taken to the license selection wizard hosted by the Creative Commons Corporation. Once you have completed the license selection process, you will be redirected back to this page.', 'cc-configurator').'</p>
-        <p><big>'.__('Please', 'cc-configurator').', <a href="' . $URI . '">'.__('select a Creative Commons license', 'cc-configurator').'</a></big></p>
+
+        <form name="formnewlicense" id="bccl-new-license-form" method="get" action="' . $cc_partner_interface_url . '">
+            <input type="hidden" name="partner" value="'.$partner.'" />
+            <input type="hidden" name="partner_icon_url" value="'.$partner_icon_url.'" />
+            <input type="hidden" name="jurisdiction_choose" value="'.$jurisdiction_choose.'" />
+            <input type="hidden" name="lang" value="'.$lang.'" />
+            <input type="hidden" name="exit_url" value="'.$exit_url.'" />
+            <p class="submit">
+                <input id="submit" class="button-primary" type="submit" value="'.__('New License', 'cc-configurator').'" name="new-license-button" />
+            </p>
+        </form>
+
     </div>');
 }
 
@@ -237,7 +248,6 @@ function bccl_set_license_options($cc_settings) {
         <div id="icon-options-general" class="icon32"><br /></div>
         <h2>'.__('License Settings', 'cc-configurator').'</h2>
 
-        <h2>'.__('Current License', 'cc-configurator').'</h2>
         <p style="text-align: center;"><big>' . bccl_get_full_html_license() . '</big></p>
         <form name="formlicense" id="bccl_reset" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
             <fieldset>
