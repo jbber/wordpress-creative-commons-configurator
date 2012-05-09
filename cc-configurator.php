@@ -94,6 +94,7 @@ function bccl_license_options () {
             cc_bgcolor (default #eef6e6)
             cc_brdr_color (default #cccccc)
             cc_no_style
+            i_have_donated
     
     It is checked if a specific form (options update, reset license) has been
     submitted or if a new license is available in a GET request.
@@ -120,6 +121,7 @@ function bccl_license_options () {
             "cc_bgcolor"    => $_POST["cc_bgcolor"],
             "cc_brdr_color" => $_POST["cc_brdr_color"],
             "cc_no_style"   => $_POST["cc_no_style"],
+            "i_have_donated"=> $_POST["i_have_donated"],
             );
         
         /*
@@ -190,6 +192,8 @@ function bccl_license_options () {
     Decide if the license selection frame will be shown or the license options page.
     */
     $cc_settings = get_option("cc_settings");
+
+    var_dump($cc_settings);
 
     if (empty($cc_settings["license_url"])) {
         bccl_select_license();
@@ -262,6 +266,14 @@ function bccl_set_license_options($cc_settings) {
                 <input type="submit" class="button-primary" name="license_reset" value="'.__('Reset License', 'cc-configurator').'" />
             </p>
         </form>
+    </div>
+
+    <div class="wrap" style="background: #EEF6E6; padding: 1em 2em; border: 1px solid #E4E4E4;' . (($options["i_have_donated"]=="1") ? ' display: none;' : '') . '">
+        <h2>'.__('Message from the author', 'cc-configurator').'</h2>
+        <p style="font-size: 1.2em; padding-left: 2em;">'.__('<em>CC-Configurator</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>free software</strong>.', 'cc-configurator').'</p>
+        <p style="font-size: 1.2em; padding-left: 2em;">'.__('However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful, I would appreciate an <a href="http://www.g-loaded.eu/about/donate/">extra cup of coffee</a>.', 'cc-configurator').'</p>
+        <p style="font-size: 1.2em; padding-left: 2em;">'.__('Thank you in advance,', 'cc-configurator').'<br />'.__('George Notaras', 'cc-configurator').'</p>
+        <div style="text-align: right;"><small>'.__('This message can de deactivated in the settings below.', 'cc-configurator').'</small></div>
     </div>
 
     <div class="wrap">
