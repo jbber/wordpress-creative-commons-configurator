@@ -109,17 +109,17 @@ function bccl_license_options () {
         taken for granted that "cc_settings" exist in the database.
         */
         $options = array(
-            "cc_head"    => $_POST["cc_head"],
-            "cc_feed"    => $_POST["cc_feed"],
-            "cc_body"    => $_POST["cc_body"],
-            "cc_body_img"    => $_POST["cc_body_img"],
-            "cc_extended"    => $_POST["cc_extended"],
+            "cc_head"       => $_POST["cc_head"],
+            "cc_feed"       => $_POST["cc_feed"],
+            "cc_body"       => $_POST["cc_body"],
+            "cc_body_img"   => $_POST["cc_body_img"],
+            "cc_extended"   => $_POST["cc_extended"],
             "cc_creator"    => $_POST["cc_creator"],
-            "cc_perm_url"    => $_POST["cc_perm_url"],
-            "cc_color"    => $_POST["cc_color"],
+            "cc_perm_url"   => $_POST["cc_perm_url"],
+            "cc_color"      => $_POST["cc_color"],
             "cc_bgcolor"    => $_POST["cc_bgcolor"],
-            "cc_brdr_color"    => $_POST["cc_brdr_color"],
-            "cc_no_style"    => $_POST["cc_no_style"],
+            "cc_brdr_color" => $_POST["cc_brdr_color"],
+            "cc_no_style"   => $_POST["cc_no_style"],
             );
         
         /*
@@ -170,14 +170,14 @@ function bccl_license_options () {
         */
         $cc_settings = array(
             "license_url"    => htmlspecialchars(rawurldecode($_GET["license_url"])),
-            "license_name"    => htmlspecialchars(rawurldecode($_GET["license_name"])),
-            "license_button"=> htmlspecialchars(rawurldecode($_GET["license_button"])),
-            "deed_url"    => htmlspecialchars(rawurldecode($_GET["deed_url"])),
-            "options"    => array(
+            "license_name"   => htmlspecialchars(rawurldecode($_GET["license_name"])),
+            "license_button" => htmlspecialchars(rawurldecode($_GET["license_button"])),
+            "deed_url"       => htmlspecialchars(rawurldecode($_GET["deed_url"])),
+            "options"        => array(
                 "cc_creator"    => "blogname",
-                "cc_color"    => "#000000",
+                "cc_color"      => "#000000",
                 "cc_bgcolor"    => "#eef6e6",
-                "cc_brdr_color"    => "#cccccc",
+                "cc_brdr_color" => "#cccccc",
                 ),
             );
         
@@ -190,7 +190,7 @@ function bccl_license_options () {
     Decide if the license selection frame will be shown or the license options page.
     */
     $cc_settings = get_option("cc_settings");
-    
+
     if (empty($cc_settings["license_url"])) {
         bccl_select_license();
     } else {
@@ -207,11 +207,11 @@ function bccl_select_license() {
      */
     $partner = urlencode("WordPress/CC-Configurator Plugin");
     $partner_icon_url = urlencode(get_bloginfo("url") . "/wp-admin/images/wordpress-logo.png");
-    $exit_url = urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "&license_url=[license_url]&license_name=[license_name]&license_button=[license_button]&deed_url=[deed_url]&new_license=1");
     $jurisdiction_choose = "1";
     $lang = get_bloginfo('language');
+    $exit_url = urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "&license_url=[license_url]&license_name=[license_name]&license_button=[license_button]&deed_url=[deed_url]&new_license=1");
 
-    $URI = htmlspecialchars("http://creativecommons.org/license/?partner=$partner&partner_icon_url=$partner_icon_url&exit_url=$exit_url&jurisdiction_choose=$jurisdiction_choose&lang=$lang");
+    $URI = htmlspecialchars("http://creativecommons.org/license/?partner=$partner&partner_icon_url=$partner_icon_url&jurisdiction_choose=$jurisdiction_choose&lang=$lang&exit_url=$exit_url");
 
     print('
     <div class="wrap">
@@ -240,19 +240,19 @@ function bccl_set_license_options($cc_settings) {
         <h2>'.__('Current License', 'cc-configurator').'</h2>
         <p style="text-align: center;"><big>' . bccl_get_full_html_license() . '</big></p>
         <form name="formlicense" id="bccl_reset" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
-            <fieldset class="options">
-                <legend>'.__('Information', 'cc-configurator').'</legend>
-                <p>'.__('If you need to use a different license for your blog, press the <em>Reset License</em> button.', 'cc-configurator').'</p>
-                <p>'.__('By reseting the license, the saved plugin options are removed from the WordPress database. Consider reseting the license before uninstalling the plugin, so that no trace of it is left in the WordPress database.', 'cc-configurator').'</p>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Current License', 'cc-configurator').'</span></legend>
+                <p>'.__('A license has been set and will be used to license your work.', 'cc-configurator').'</p>
+                <p>'.__('If you need to set a different license, press the <em>Reset License</em> button below. By reseting the license, the saved plugin options are removed from the WordPress database.', 'cc-configurator').'</p>
             </fieldset>
             <p class="submit">
-                <input type="submit" name="license_reset" value="'.__('Reset License', 'cc-configurator').' &raquo;" />
+                <input type="submit" class="button-primary" name="license_reset" value="'.__('Reset License', 'cc-configurator').'" />
             </p>
         </form>
     </div>
 
     <div class="wrap">
-        <h2>'.__('License Options', 'cc-configurator').'</h2>
+        <h2>'.__('Configuration', 'cc-configurator').'</h2>
         <p>'.__('Here you can choose where and how license information should be added to your blog.', 'cc-configurator').'</p>
         <form name="formlicenseoptions" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
             <fieldset class="options">
