@@ -213,6 +213,9 @@ function bccl_select_license() {
     $lang = get_bloginfo('language');
     $exit_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "&license_url=[license_url]&license_name=[license_name]&license_button=[license_button]&deed_url=[deed_url]&new_license=1";
 
+    // Not currently used. Could be utilized to present the partner interace in an iframe.
+    $Partner_Interface_URI = htmlspecialchars("http://creativecommons.org/license/?partner=$partner&partner_icon_url=$partner_icon_url&jurisdiction_choose=$jurisdiction_choose&lang=$lang&exit_url=$exit_url");
+
     print('
     <div class="wrap">
         <div id="icon-options-general" class="icon32"><br /></div>
