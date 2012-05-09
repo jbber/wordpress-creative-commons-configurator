@@ -267,128 +267,161 @@ function bccl_set_license_options($cc_settings) {
     <div class="wrap">
         <h2>'.__('Configuration', 'cc-configurator').'</h2>
         <p>'.__('Here you can choose where and how license information should be added to your blog.', 'cc-configurator').'</p>
-        <form name="formlicenseoptions" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
-            <fieldset class="options">
-                <legend>'.__('Page Head (HTML)', 'cc-configurator').'</legend>
-                <ul><li>
-                    <input name="cc_head" type="checkbox" id="cc_head" value="1" ');
-                    checked('1', $cc_settings["options"]["cc_head"]);
-                    print(' />
-                    <label for="cc_head">'.__('Include license information in the page\'s HTML head. This will not be visible to human visitors, but search engine bots will be able to read it. (Recommended)', 'cc-configurator').'</label>
-                </li></ul>
-            </fieldset>
-        '); if ( $wp_version >= 2 ) { print('
-            <fieldset class="options">
-                <legend>'.__('Syndicated Content', 'cc-configurator').'</legend>
-                <ul><li>
-                    <input name="cc_feed" type="checkbox" id="cc_feed" value="1" ');
-                    checked('1', $cc_settings["options"]["cc_feed"]);
-                    print(' />
-                    <label for="cc_feed">'.__('Include license information in the blog feeds. (Recommended)', 'cc-configurator').'</label>
-                </li></ul>
-            </fieldset>
-        '); } print('
-            <fieldset class="options">
-                <legend>'.__('Under the published content', 'cc-configurator').'</legend>
-                <p>'.__('By enabling the following option, a small block of text, which contains links to the author, the work and the used license, is appended to the published content. (Recommended)', 'cc-configurator').'</p>
-                <ul><li>
-                    <input name="cc_body" type="checkbox" id="cc_body" value="1" ');
-                    checked('1', $cc_settings["options"]["cc_body"]);
-                    print(' />
-                    <label for="cc_body">'.__('Add the text block with license information under the published content in single-post view.', 'cc-configurator').'</label>
-                    <br /><br />
-                    
-                    <ul>
-                
-                    <li>
-                        <input name="cc_body_img" type="checkbox" id="cc_body_img" value="1" ');
-                        checked('1', $cc_settings["options"]["cc_body_img"]);
-                        print(' />
-                        <label for="cc_body_img">'.__('Include the license image in the text block.', 'cc-configurator').'</label>
-                        <br /><br />
-                    </li>
-                    
-                    <li>
-                        <input name="cc_extended" type="checkbox" id="cc_extended" value="1" ');
-                        checked('1', $cc_settings["options"]["cc_extended"]);
-                        print(' />
-                        <label for="cc_extended">'.__('Include extended information about the published work and its creator. By enabling this option, hyperlinks to the published content and its creator/publisher are also included into the license statement inside the block. This, by being an attribution example itself, will generally help others to attribute the work to you.', 'cc-configurator').'</label>
-                        <br /><br />
-                        
-                        <ul>
-                        
-                        <li>
-                            <select name="cc_creator" id="cc_creator">');
-                            $creator_arr = bccl_get_creator_pool();
-                            foreach ($creator_arr as $internal => $creator) {
-                                if ($cc_settings["options"]["cc_creator"] == $internal) {
-                                    $selected = ' selected="selected"';
-                                } else {
-                                    $selected = '';
-                                }
-                                printf('<option value="%s"%s>%s</option>', $internal, $selected, $creator);
-                            }
-                            print('</select>
-                            <label for="cc_creator">'.__('If extended information about the published work has been enabled, then you can choose which name will indicate the creator of the work. By default, the blog name is used.', 'cc-configurator').'</label>
-                            <br /><br />
-                        </li>
-                        
-                        </ul>
-                    </li>
-                    
-                    <li>
-                        '.__('If you have added any extra permissions to your license, provide the URL to the webpage that contains them. It is highly recommended to use absolute URLs, for example', 'cc-configurator').': <code>http://www.example.org/ExtendedPermissions</code><br />
-                        <input name="cc_perm_url" type="text" id="cc_perm_url" class="code" value="' . $cc_settings["options"]["cc_perm_url"] . '" size="80" />
-                        <br /><br />
-                    </li>
-                    
-                    <li><big><strong>'.__('Colors of the license block', 'cc-configurator').':</strong></big>
-                        <br /><br />
-                        
-                        <ul>
-                        
-                        <li>
 
-                            '.__('Set a color for the text that appears within the block (does not affect hyperlinks)', 'cc-configurator').': 
-                            <input name="cc_color" type="text" id="cc_color" class="code" value="' . $cc_settings["options"]["cc_color"] . '" size="7" maxlength="7" /> 
-                            <br />'.__('Default', 'cc-configurator').': <code>#000000</code>
-                            <br /><br />
-                        </li>
-                    
-                        <li>
-                            '.__('Set a background color for the block.', 'cc-configurator').': 
-                            <input name="cc_bgcolor" type="text" id="cc_bgcolor" class="code" value="' . $cc_settings["options"]["cc_bgcolor"] . '" size="7" maxlength="7" /> 
-                            <br />'.__('Default', 'cc-configurator').': <code>#eef6e6</code>
-                            <br /><br />
-                        </li>
-                    
-                        <li>
-                            '.__('Set a color for the border of the block.', 'cc-configurator').': 
-                            <input name="cc_brdr_color" type="text" id="cc_brdr_color" class="code" value="' . $cc_settings["options"]["cc_brdr_color"] . '" size="7" maxlength="7" /> 
-                            <br />'.__('Default', 'cc-configurator').': <code>#cccccc</code>
-                            <br /><br />
-                        </li>
-                        
-                        <li>
-                            <input name="cc_no_style" type="checkbox" id="cc_no_style" value="1" ');
-                            checked('1', $cc_settings["options"]["cc_no_style"]);
-                            print(' />
-                            <label for="cc_no_style">'.__('Disable the internal formatting of the license block. If the internal formatting is disabled, then the color selections above have no effect any more. You can still format the license block via your own CSS. The <em>cc-block</em> and <em>cc-button</em> classes have been reserved for formatting the license block and the license button respectively.', 'cc-configurator').'</label>
-                            <br /><br />
-                    </li>
-                        
-                        </ul>
-                    
-                    </li>
-                    
-                    </ul>
-                </li></ul>
+        <form name="formbccl" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
+
+        <table class="form-table">
+        <tbody>
+
+            <tr valign="top">
+            <th scope="row">'.__('Page Head HTML', 'cc-configurator').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Page Head HTML', 'cc-configurator').'</span></legend>
+                <input id="cc_head" type="checkbox" value="1" name="cc_head" '. (($cc_settings["options"]["cc_head"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_head">
+                '.__('Include license information in the page\'s HTML head. This will not be visible to human visitors, but search engine bots will be able to read it. (Recommended)', 'cc-configurator').'
+                </label>
+                <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Syndicated Content', 'cc-configurator').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Syndicated Content', 'cc-configurator').'</span></legend>
+                <input id="cc_feed" type="checkbox" value="1" name="cc_feed" '. (($cc_settings["options"]["cc_feed"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_feed">
+                '.__('Include license information in the blog feeds. (Recommended)', 'cc-configurator').'
+                </label>
+                <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Text Block', 'cc-configurator').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Text Block', 'cc-configurator').'</span></legend>
+
+                <input id="cc_body" type="checkbox" value="1" name="cc_body" '. (($cc_settings["options"]["cc_body"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_body">
+                '.__('Add the text block with license information under the published content in single-post view. By enabling this option, a small block of text, which contains links to the author, the work and the used license, is appended to the published content. (Recommended)', 'cc-configurator').'
+                </label>
+                <br />
+
+                <input id="cc_body_img" type="checkbox" value="1" name="cc_body_img" '. (($cc_settings["options"]["cc_body_img"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_body_img">
+                '.__('Include the license image in the text block under the content.', 'cc-configurator').'
+                </label>
+                <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Extra Text Block Customization', 'cc-configurator').'</th>
+            <td>
+            <p>'.__('The following settings have an effect only if the text block containing licensing information has been enabled above.', 'cc-configurator').'</p>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Extra Text Block Customization', 'cc-configurator').'</span></legend>
+
+                <input id="cc_extended" type="checkbox" value="1" name="cc_extended" '. (($cc_settings["options"]["cc_extended"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_extended">
+                '.__('Include extended information about the published work and its creator. By enabling this option, hyperlinks to the published content and its creator/publisher are also included into the license statement inside the block. This, by being an attribution example itself, will generally help others to attribute the work to you.', 'cc-configurator').'
+                </label>
+                <br />
+                <br />
+
+                <select name="cc_creator" id="cc_creator">');
+                $creator_arr = bccl_get_creator_pool();
+                foreach ($creator_arr as $internal => $creator) {
+                    if ($cc_settings["options"]["cc_creator"] == $internal) {
+                        $selected = ' selected="selected"';
+                    } else {
+                        $selected = '';
+                    }
+                    printf('<option value="%s"%s>%s</option>', $internal, $selected, $creator);
+                }
+                print('</select>
+                <br />
+                <label for="cc_creator">
+                '.__('If extended information about the published work has been enabled, then you can choose which name will indicate the creator of the work. By default, the blog name is used.', 'cc-configurator').'
+                </label>
+                <br />
+                <br />
+
+                <input name="cc_perm_url" type="text" id="cc_perm_url" class="code" value="' . $cc_settings["options"]["cc_perm_url"] . '" size="100" maxlength="1024" />
+                <br />
+                <label for="cc_perm_url">
+                '.__('If you have added any extra permissions to your license, provide the URL to the webpage that contains them. It is highly recommended to use absolute URLs.', 'cc-configurator').'
+                <br />
+                <strong>'.__('Example', 'cc-configurator').'</strong>: <code>http://www.example.org/ExtendedPermissions</code>
+                </label>
+                <br />
 
             </fieldset>
-            <p class="submit">
-                <input type="submit" name="options_update" value="'.__('Update Options', 'cc-configurator').' &raquo;" />
-            </p>
+            </td>
+            </tr>
+
+            
+            <tr valign="top">
+            <th scope="row">'.__('Colors of the text block', 'cc-configurator').'</th>
+            <td>
+            <p>'.__('The following settings have an effect only if the text block containing licensing information has been enabled above.', 'cc-configurator').'</p>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Colors of the text block', 'cc-configurator').'</span></legend>
+
+                <input name="cc_color" type="text" id="cc_color" class="code" value="' . $cc_settings["options"]["cc_color"] . '" size="7" maxlength="7" />
+                <label for="cc_color">
+                '.__('Set a color for the text that appears within the block (does not affect hyperlinks).', 'cc-configurator').'
+                <br />
+                <strong>'.__('Default', 'cc-configurator').'</strong>: <code>#000000</code>
+                </label>
+                <br />
+                <br />
+
+                <input name="cc_bgcolor" type="text" id="cc_bgcolor" class="code" value="' . $cc_settings["options"]["cc_bgcolor"] . '" size="7" maxlength="7" />
+                <label for="cc_bgcolor">
+                '.__('Set a background color for the block.', 'cc-configurator').'
+                <br />
+                <strong>'.__('Default', 'cc-configurator').'</strong>: <code>#eef6e6</code>
+                </label>
+                <br />
+                <br />
+
+                <input name="cc_brdr_color" type="text" id="cc_brdr_color" class="code" value="' . $cc_settings["options"]["cc_brdr_color"] . '" size="7" maxlength="7" />
+                <label for="cc_brdr_color">
+                '.__('Set a color for the border of the block.', 'cc-configurator').'
+                <br />
+                <strong>'.__('Default', 'cc-configurator').'</strong>: <code>#cccccc</code>
+                </label>
+                <br />
+                <br />
+
+                <input id="cc_no_style" type="checkbox" value="1" name="cc_no_style" '. (($cc_settings["options"]["cc_no_style"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_no_style">
+                '.__('Disable the internal formatting of the license block. If the internal formatting is disabled, then the color selections above have no effect any more. You can still format the license block via your own CSS. The <em>cc-block</em> and <em>cc-button</em> classes have been reserved for formatting the license block and the license button respectively.', 'cc-configurator').'
+                </label>
+                <br />
+
+            </fieldset>
+            </td>
+            </tr>
+
+
+        </tbody>
+        </table>
+
+        <p class="submit">
+            <input id="submit" class="button-primary" type="submit" value="'.__('Save Changes', 'cc-configurator').'" name="options_update" />
+        </p>
+
         </form>
+
     </div>
 
     <div class="wrap">
@@ -661,7 +694,8 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
         $additional_perms = "";
     }
     
-    $cc_block = sprintf("<div class=\"%s\">%s%s%s</div>", $css_class, $button_code, $work, $additional_perms);
+    // $cc_block = sprintf("<div class=\"%s\">%s%s%s</div>", $css_class, $button_code, $work, $additional_perms);
+    $cc_block = sprintf("<p class=\"%s\">%s%s%s</p>", $css_class, $button_code, $work, $additional_perms);
     return $cc_block;
 }
 
