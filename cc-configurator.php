@@ -73,7 +73,7 @@ function bccl_license_options () {
         wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
     }
 
-    // Default Add-Meta-Tags Settings
+    // Default CC-Configurator Settings
     $default_cc_settings = array(
         "license_url"   => "",
         "license_name"  => "",
