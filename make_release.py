@@ -3,10 +3,11 @@
 
 REL_FILES = [
 	'cc-configurator.php',
-	'ChangeLog',
 	'LICENSE',
 	'NOTICE',
 	'README',
+    'screenshot-1.png',
+    'uninstall.php',
 ]
 
 PLUGIN_METADATA_FILE = 'cc-configurator.php'
