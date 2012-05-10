@@ -56,7 +56,7 @@ Please, use our [issue database](http://www.codetrax.org/projects/wp-cc-configur
 
 == Screenshots ==
 
-1. Add-Meta-Tags administration interface.
+1. Creative-Commons-Configurator administration interface.
 
 
 == Changelog ==
