@@ -73,29 +73,29 @@ function bccl_license_options () {
         wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
     }
 
+    // Default Add-Meta-Tags Settings
+    $default_cc_settings = array(
+        "license_url"   => "",
+        "license_name"  => "",
+        "license_button"=> "",
+        "deed_url"      => "",
+        "options"       => array(
+            "cc_head"       => "0",
+            "cc_feed"       => "0",
+            "cc_body"       => "0",
+            "cc_body_img"   => "0",
+            "cc_extended"   => "0",
+            "cc_creator"    => "blogname",
+            "cc_perm_url"   => "",
+            "cc_color"      => "#000000",
+            "cc_bgcolor"    => "#eef6e6",
+            "cc_brdr_color" => "#cccccc",
+            "cc_no_style"   => "0",
+            "cc_i_have_donated" => "0",
+        )
+    );
 
     /*
-    Format of the saved settings array:
-    
-    cc_settings (array)
-        license_url
-        license_name
-        license_button
-        deed_url
-        options (array)
-            cc_head
-            cc_feed
-            cc_body
-            cc_body_img
-            cc_extended
-            cc_creator
-            cc_perm_url
-            cc_color (default black)
-            cc_bgcolor (default #eef6e6)
-            cc_brdr_color (default #cccccc)
-            cc_no_style
-            i_have_donated
-    
     It is checked if a specific form (options update, reset license) has been
     submitted or if a new license is available in a GET request.
     
@@ -105,11 +105,12 @@ function bccl_license_options () {
     */
     if (isset($_POST["options_update"])) {
         /*
-        Updates the CC License options only.
-        It will never enter here if a license has not been set, so it is
-        taken for granted that "cc_settings" exist in the database.
-        */
-        $options = array(
+         * Updates the CC License options only.
+         * It will never enter here if a license has not been set, so it is
+         * taken for granted that "cc_settings" exist in the database.
+         */
+        $cc_settings = get_option("cc_settings");
+        $cc_settings["options"] = array(
             "cc_head"       => $_POST["cc_head"],
             "cc_feed"       => $_POST["cc_feed"],
             "cc_body"       => $_POST["cc_body"],
@@ -121,71 +122,42 @@ function bccl_license_options () {
             "cc_bgcolor"    => $_POST["cc_bgcolor"],
             "cc_brdr_color" => $_POST["cc_brdr_color"],
             "cc_no_style"   => $_POST["cc_no_style"],
-            "i_have_donated"=> $_POST["i_have_donated"],
+            "cc_i_have_donated" => $_POST["cc_i_have_donated"],
             );
         
-        /*
-        Set default values for the following options if empty: cc_color, cc_bgcolor, cc_brdr_color
-        cc_creator should NEVER be empty so, it is not included.
-        */
-        if (empty($options["cc_color"])) {
-            $options["cc_color"] = "#000000";
-        }
-        if (empty($options["cc_bgcolor"])) {
-            $options["cc_bgcolor"] = "#eef6e6";
-        }
-        if (empty($options["cc_brdr_color"])) {
-            $options["cc_brdr_color"] = "#cccccc";
-        }
-        
-        $cc_settings = get_option("cc_settings");
-        $cc_settings["options"] = $options;
         update_option("cc_settings", $cc_settings);
         bccl_show_info_msg(__('Creative Commons license options saved.', 'cc-configurator'));
 
     } elseif (isset($_POST["license_reset"])) {
         /*
-        Delete all plugin options from the WordPress database when the
-        "Reset" button is pressed.
-        */
+         * Reset all options to the defaults.
+         */
         delete_option("cc_settings");
+        update_option("cc_settings", $default_cc_settings);
         bccl_show_info_msg(__("Creative Commons license options deleted from the WordPress database.", 'cc-configurator'));
-
-        /*
-        The following exist for deleting old (pre v1.0) plugin options.
-        The following statements have no effect if the options do not exist.
-        This is 100% safe (TM).
-        */
-        delete_option("bccl_html");
-        delete_option("bccl_rdf");
-        delete_option("bccl_header");
-        delete_option("bccl_feed");
-        delete_option("bccl_body");
-        delete_option("bccl_body_extra");
 
     } elseif (isset($_GET["new_license"])) {
         /*
-        Saves license settings to database.
-        new_license must exist in the GET request.
-        
-        Also, saves the default colors to the options.
-        */
-        $cc_settings = array(
-            "license_url"    => htmlspecialchars(rawurldecode($_GET["license_url"])),
-            "license_name"   => htmlspecialchars(rawurldecode($_GET["license_name"])),
-            "license_button" => htmlspecialchars(rawurldecode($_GET["license_button"])),
-            "deed_url"       => htmlspecialchars(rawurldecode($_GET["deed_url"])),
-            "options"        => array(
-                "cc_creator"    => "blogname",
-                "cc_color"      => "#000000",
-                "cc_bgcolor"    => "#eef6e6",
-                "cc_brdr_color" => "#cccccc",
-                ),
-            );
+         * Saves the new license settings to database.
+         * The ``new_license`` query argument must exist in the GET request.
+         *
+         * Also, saves the default colors to the options.
+         */
+        $cc_settings = $default_cc_settings;
+        // Replace the base CC license settings
+        $cc_settings["license_url"] = htmlspecialchars(rawurldecode($_GET["license_url"]));
+        $cc_settings["license_name"] = htmlspecialchars(rawurldecode($_GET["license_name"]));
+        $cc_settings["license_button"] = htmlspecialchars(rawurldecode($_GET["license_button"]));
+        $cc_settings["deed_url"] = htmlspecialchars(rawurldecode($_GET["deed_url"]));
         
         update_option("cc_settings", $cc_settings);
         bccl_show_info_msg(__('Creative Commons license saved.', 'cc-configurator'));
 
+    } elseif (!get_option("cc_settings")) {
+
+        // CC-Configurator settings do not exist in the database.
+        // This is the first run, so set our defaults.
+        update_option("cc_settings", $default_cc_settings);
     }
     
     /*
@@ -193,7 +165,7 @@ function bccl_license_options () {
     */
     $cc_settings = get_option("cc_settings");
 
-    var_dump($cc_settings);
+    //var_dump($cc_settings);
 
     if (empty($cc_settings["license_url"])) {
         bccl_select_license();
@@ -268,11 +240,11 @@ function bccl_set_license_options($cc_settings) {
         </form>
     </div>
 
-    <div class="wrap" style="background: #EEF6E6; padding: 1em 2em; border: 1px solid #E4E4E4;' . (($options["i_have_donated"]=="1") ? ' display: none;' : '') . '">
+    <div class="wrap" style="background: #EEF6E6; padding: 1em 2em; border: 1px solid #E4E4E4;' . (($cc_settings["options"]["cc_i_have_donated"]=="1") ? ' display: none;' : '') . '">
         <h2>'.__('Message from the author', 'cc-configurator').'</h2>
         <p style="font-size: 1.2em; padding-left: 2em;">'.__('<em>CC-Configurator</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>free software</strong>.', 'cc-configurator').'</p>
         <p style="font-size: 1.2em; padding-left: 2em;">'.__('However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful, I would appreciate an <a href="http://www.g-loaded.eu/about/donate/">extra cup of coffee</a>.', 'cc-configurator').'</p>
-        <p style="font-size: 1.2em; padding-left: 2em;">'.__('Thank you in advance,', 'cc-configurator').'<br />'.__('George Notaras', 'cc-configurator').'</p>
+        <p style="font-size: 1.2em; padding-left: 2em;">'.__('Thank you in advance,', 'cc-configurator').'</p>
         <div style="text-align: right;"><small>'.__('This message can de deactivated in the settings below.', 'cc-configurator').'</small></div>
     </div>
 
@@ -417,6 +389,21 @@ function bccl_set_license_options($cc_settings) {
                 <input id="cc_no_style" type="checkbox" value="1" name="cc_no_style" '. (($cc_settings["options"]["cc_no_style"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="cc_no_style">
                 '.__('Disable the internal formatting of the license block. If the internal formatting is disabled, then the color selections above have no effect any more. You can still format the license block via your own CSS. The <em>cc-block</em> and <em>cc-button</em> classes have been reserved for formatting the license block and the license button respectively.', 'cc-configurator').'
+                </label>
+                <br />
+
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Donations', 'cc-configurator').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Donations', 'cc-configurator').'</span></legend>
+                <input id="cc_i_have_donated" type="checkbox" value="1" name="cc_i_have_donated" '. (($cc_settings["options"]["cc_i_have_donated"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_i_have_donated">
+                '.__('By checking this, the <em>message from the author</em> above goes away. Thanks for <a href="http://www.g-loaded.eu/about/donate/">donating</a>!', 'cc-configurator').'
                 </label>
                 <br />
 
