@@ -64,6 +64,7 @@ Please, use our [issue database](http://www.codetrax.org/projects/wp-cc-configur
 
 In the following list there are links to the changelog of each release:
 
+- [1.3.1](http://www.codetrax.org/versions/129)
 - [1.3.0](http://www.codetrax.org/versions/127)
 - [1.2](http://www.codetrax.org/versions/7)
 - [1.1](http://www.codetrax.org/versions/5)
@@ -73,5 +74,4 @@ In the following list there are links to the changelog of each release:
 - [0.4](http://www.codetrax.org/versions/43)
 - [0.2](http://www.codetrax.org/versions/42)
 - [0.1](http://www.codetrax.org/versions/41)
-
 
