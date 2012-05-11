@@ -2,12 +2,17 @@
 # Copyright George Notaras
 
 REL_FILES = [
-	'cc-configurator.php',
-	'LICENSE',
-	'NOTICE',
-	'README',
+    'AUTHORS',
+    'cc-configurator.php',
+    'LICENSE',
+    'NOTICE',
+    'README',
     'screenshot-1.png',
     'uninstall.php',
+]
+
+REL_DIRS = [
+    'languages',
 ]
 
 PLUGIN_METADATA_FILE = 'cc-configurator.php'
@@ -43,29 +48,29 @@ import shutil
 import subprocess
 
 def get_name_release():
-	def get_data(cur_line):
-		return cur_line.split(':')[1].strip()
-	f = open(PLUGIN_METADATA_FILE)
-	name = ''
-	release = ''
-	for line in f:
-		if line.lower().startswith('plugin name:'):
-			name = get_data(line)
-		elif line.lower().startswith('version:'):
-			release = get_data(line)
-		if name and release:
-			break
-	f.close()
-	
-	if not name:
-		raise Exception('Cannot determine plugin name')
-	elif not release:
-		raise Exception('Cannot determine plugin version')
-	else:
-		# Replace spaces in name and convert it to lowercase
-		name = name.replace(' ', '-')
-		name = name.lower()
-		return name, release
+    def get_data(cur_line):
+        return cur_line.split(':')[1].strip()
+    f = open(PLUGIN_METADATA_FILE)
+    name = ''
+    release = ''
+    for line in f:
+        if line.lower().startswith('plugin name:'):
+            name = get_data(line)
+        elif line.lower().startswith('version:'):
+            release = get_data(line)
+        if name and release:
+            break
+    f.close()
+    
+    if not name:
+        raise Exception('Cannot determine plugin name')
+    elif not release:
+        raise Exception('Cannot determine plugin version')
+    else:
+        # Replace spaces in name and convert it to lowercase
+        name = name.replace(' ', '-')
+        name = name.lower()
+        return name, release
 
 name, release = get_name_release()
 
@@ -98,8 +103,12 @@ name_release_dir = name + '-1'
 
 # Create release dir and move release files inside it
 os.mkdir(name_release_dir)
+# Copy files
 for p_file in REL_FILES:
-	shutil.copy(p_file, os.path.join(name_release_dir, p_file))
+    shutil.copy(p_file, os.path.join(name_release_dir, p_file))
+# Copy dirs
+for p_dir in REL_DIRS:
+    shutil.copytree(p_dir, os.path.join(name_release_dir, p_dir))
 
 
 # Create distribution package
@@ -107,8 +116,15 @@ for p_file in REL_FILES:
 d_package_path = '%s-%s.zip' % (name, release)
 d_package = zipfile.ZipFile(d_package_path, 'w', zipfile.ZIP_DEFLATED)
 
+# Append root files
 for p_file in REL_FILES:
-	d_package.write(os.path.join(name_release_dir, p_file))
+    d_package.write(os.path.join(name_release_dir, p_file))
+# Append language directory
+for p_dir in REL_DIRS:
+    d_package.write(os.path.join(name_release_dir, p_dir))
+    # Append files in that directory
+    for p_file in os.listdir(os.path.join(name_release_dir, p_dir)):
+        d_package.write(os.path.join(name_release_dir, p_dir, p_file))
 
 d_package.testzip()
 
