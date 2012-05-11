@@ -1,4 +1,5 @@
 === Creative Commons Configurator ===
+License: Apache License v2
 Donate link: http://www.g-loaded.eu/about/donate/
 Tags: cc, license, metadata, legal, creative, commons, seo, attribution, copyright, cc license, creative commons, rights
 Requires at least: 2.7
@@ -61,6 +62,16 @@ Please, use our [issue database](http://www.codetrax.org/projects/wp-cc-configur
 
 == Changelog ==
 
-Please read the dynamic [changelog](http://www.codetrax.org/versions/127 "Creative-Commons-Configurator ChangeLog")
+In the following list there are links to the changelog of each release:
+
+- [1.3.0](http://www.codetrax.org/versions/127)
+- [1.2](http://www.codetrax.org/versions/7)
+- [1.1](http://www.codetrax.org/versions/5)
+- [1.0](http://www.codetrax.org/versions/22)
+- [0.6](http://www.codetrax.org/versions/45)
+- [0.5](http://www.codetrax.org/versions/44)
+- [0.4](http://www.codetrax.org/versions/43)
+- [0.2](http://www.codetrax.org/versions/42)
+- [0.1](http://www.codetrax.org/versions/41)
 
 
