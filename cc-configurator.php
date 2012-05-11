@@ -40,7 +40,7 @@ $default_button = "0";
  *
  * Translation files are searched in: wp-content/plugins
  */
-load_plugin_textdomain('cc-configurator', 'wp-content/plugins');
+load_plugin_textdomain('cc-configurator', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/');
 
 
 /**
