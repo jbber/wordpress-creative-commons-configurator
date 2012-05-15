@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: cc-configurator 1.3.1\n"
+"Project-Id-Version: cc-configurator 1.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-11 14:51+0300\n"
+"POT-Creation-Date: 2012-05-15 21:04+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -305,54 +305,54 @@ msgstr ""
 msgid "Creative Commons"
 msgstr ""
 
-#: cc-configurator.php:571
+#: cc-configurator.php:578
 msgid "Creative Commons License"
 msgstr ""
 
-#: cc-configurator.php:693
+#: cc-configurator.php:700
 msgid "The"
 msgstr ""
 
-#: cc-configurator.php:693
+#: cc-configurator.php:700
 msgid "by"
 msgstr ""
 
-#: cc-configurator.php:695
+#: cc-configurator.php:702
 msgid "This work"
 msgstr ""
 
-#: cc-configurator.php:698
+#: cc-configurator.php:705
 msgid "ERROR (cc-configurator): you must define the work to be licenced, if not using this template tag in single-post view."
 msgstr ""
 
-#: cc-configurator.php:700
+#: cc-configurator.php:707
 msgid "unless otherwise expressly stated"
 msgstr ""
 
-#: cc-configurator.php:700
+#: cc-configurator.php:707
 msgid "is licensed under a"
 msgstr ""
 
-#: cc-configurator.php:704
+#: cc-configurator.php:711
 msgid "Terms and conditions beyond the scope of this license may be available at"
 msgstr ""
 
-#: cc-configurator.php:730
+#: cc-configurator.php:737
 msgid "Blog Name"
 msgstr ""
 
-#: cc-configurator.php:731
+#: cc-configurator.php:738
 msgid "First + Last Name"
 msgstr ""
 
-#: cc-configurator.php:732
+#: cc-configurator.php:739
 msgid "Last + First Name"
 msgstr ""
 
-#: cc-configurator.php:733
+#: cc-configurator.php:740
 msgid "Nickname"
 msgstr ""
 
-#: cc-configurator.php:734
+#: cc-configurator.php:741
 msgid "Displayed Name"
 msgstr ""
