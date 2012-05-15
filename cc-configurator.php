@@ -567,6 +567,13 @@ function bccl_get_license_image_hyperlink($button = "default") {
         $license_button = $buttons[$button];
     }
     
+    // Finally check whether the WordPress site is served over the HTTPS protocol
+    // so as to use https in the image source. Creative Commons makes license
+    // images available over HTTPS as well.
+    if (is_ssl()) {
+        $license_button = str_replace('http://', 'https://', $license_button);
+    }
+
     $image_link_format = "<a rel=\"license\" href=\"%s\"><img alt=\"%s\" src=\"%s\" class=\"cc-button\" /></a>";
     return sprintf($image_link_format, $license_url, __('Creative Commons License', 'cc-configurator'), $license_button);
 
