@@ -84,6 +84,8 @@ function bccl_license_options () {
             "cc_head"       => "0",
             "cc_feed"       => "0",
             "cc_body"       => "0",
+            "cc_body_pages" => "0",
+            "cc_body_attachments"   => "0",
             "cc_body_img"   => "0",
             "cc_extended"   => "0",
             "cc_creator"    => "blogname",
@@ -115,6 +117,8 @@ function bccl_license_options () {
             "cc_head"       => $_POST["cc_head"],
             "cc_feed"       => $_POST["cc_feed"],
             "cc_body"       => $_POST["cc_body"],
+            "cc_body_pages" => $_POST["cc_body_pages"],
+            "cc_body_attachments" => $_POST["cc_body_attachments"],
             "cc_body_img"   => $_POST["cc_body_img"],
             "cc_extended"   => $_POST["cc_extended"],
             "cc_creator"    => $_POST["cc_creator"],
@@ -292,15 +296,31 @@ function bccl_set_license_options($cc_settings) {
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Text Block', 'cc-configurator').'</span></legend>
 
+                <p>'.__('By enabling the following options, a small block of text, which contains links to the author, the work and the used license, is appended to the published content.', 'cc-configurator').'</p>
+
                 <input id="cc_body" type="checkbox" value="1" name="cc_body" '. (($cc_settings["options"]["cc_body"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="cc_body">
-                '.__('Add the text block with license information under the published content in single-post view. By enabling this option, a small block of text, which contains links to the author, the work and the used license, is appended to the published content. (Recommended)', 'cc-configurator').'
+                '.__('Posts: Add the text block with license information under the published posts. (Recommended)', 'cc-configurator').'
                 </label>
                 <br />
 
+                <input id="cc_body_pages" type="checkbox" value="1" name="cc_body_pages" '. (($cc_settings["options"]["cc_body_pages"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_body_pages">
+                '.__('Pages: Add the text block with license information under the published pages.', 'cc-configurator').'
+                </label>
+                <br />
+
+                <input id="cc_body_attachments" type="checkbox" value="1" name="cc_body_attachments" '. (($cc_settings["options"]["cc_body_attachments"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_body_attachments">
+                '.__('Attachments: Add the text block with license information under the attached content in attachment pages.', 'cc-configurator').'
+                </label>
+                <br />
+
+                <p>'.__('By enabling the following option, the license image is also included in the license text block.', 'cc-configurator').'</p>
+
                 <input id="cc_body_img" type="checkbox" value="1" name="cc_body_img" '. (($cc_settings["options"]["cc_body_img"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="cc_body_img">
-                '.__('Include the license image in the text block under the content.', 'cc-configurator').'
+                '.__('Include the license image in the text block.', 'cc-configurator').'
                 </label>
                 <br />
             </fieldset>
