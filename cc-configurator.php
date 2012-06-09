@@ -711,7 +711,7 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
     }
     
     // Work analysis
-    if (!$work && is_single()) {
+    if ( empty($work) ) {
         // Proceed only if the user has not defined the work.
         if ( $cc_settings["options"]["cc_extended"] ) {
             $creator = bccl_get_the_creator($cc_settings["options"]["cc_creator"]);
@@ -721,8 +721,6 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
         } else {
             $work = __('This work', 'cc-configurator');
         }
-    } elseif (!$work && !is_single()) {
-        return __('ERROR (cc-configurator): you must define the work to be licenced, if not using this template tag in single-post view.', 'cc-configurator');
     }
     $work .= sprintf(", ".__('unless otherwise expressly stated', 'cc-configurator').", ".__('is licensed under a', 'cc-configurator')." %s.", bccl_get_license_text_hyperlink());
     
