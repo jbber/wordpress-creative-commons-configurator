@@ -263,13 +263,13 @@ function bccl_set_license_options($cc_settings) {
         <tbody>
 
             <tr valign="top">
-            <th scope="row">'.__('Page Head HTML', 'cc-configurator').'</th>
+            <th scope="row">'.__('Syndicated Content', 'cc-configurator').'</th>
             <td>
             <fieldset>
-                <legend class="screen-reader-text"><span>'.__('Page Head HTML', 'cc-configurator').'</span></legend>
-                <input id="cc_head" type="checkbox" value="1" name="cc_head" '. (($cc_settings["options"]["cc_head"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="cc_head">
-                '.__('Include license information in the page\'s HTML head. This will not be visible to human visitors, but search engine bots will be able to read it. (Recommended)', 'cc-configurator').'
+                <legend class="screen-reader-text"><span>'.__('Syndicated Content', 'cc-configurator').'</span></legend>
+                <input id="cc_feed" type="checkbox" value="1" name="cc_feed" '. (($cc_settings["options"]["cc_feed"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_feed">
+                '.__('Include license information in the blog feeds. (<em>Recommended</em>)', 'cc-configurator').'
                 </label>
                 <br />
             </fieldset>
@@ -277,13 +277,13 @@ function bccl_set_license_options($cc_settings) {
             </tr>
 
             <tr valign="top">
-            <th scope="row">'.__('Syndicated Content', 'cc-configurator').'</th>
+            <th scope="row">'.__('Page Head HTML', 'cc-configurator').'</th>
             <td>
             <fieldset>
-                <legend class="screen-reader-text"><span>'.__('Syndicated Content', 'cc-configurator').'</span></legend>
-                <input id="cc_feed" type="checkbox" value="1" name="cc_feed" '. (($cc_settings["options"]["cc_feed"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="cc_feed">
-                '.__('Include license information in the blog feeds. (Recommended)', 'cc-configurator').'
+                <legend class="screen-reader-text"><span>'.__('Page Head HTML', 'cc-configurator').'</span></legend>
+                <input id="cc_head" type="checkbox" value="1" name="cc_head" '. (($cc_settings["options"]["cc_head"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="cc_head">
+                '.__('Include license information in the page\'s HTML head. This will not be visible to human visitors, but search engine bots will be able to read it. Note that the insertion of license information in the HTML head is done in relation to the content types (posts, pages or attachment pages) on which the license text block is displayed (see the <em>text block</em> settings below). (<em>Recommended</em>)', 'cc-configurator').'
                 </label>
                 <br />
             </fieldset>
@@ -300,7 +300,7 @@ function bccl_set_license_options($cc_settings) {
 
                 <input id="cc_body" type="checkbox" value="1" name="cc_body" '. (($cc_settings["options"]["cc_body"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="cc_body">
-                '.__('Posts: Add the text block with license information under the published posts. (Recommended)', 'cc-configurator').'
+                '.__('Posts: Add the text block with license information under the published posts. (<em>Recommended</em>)', 'cc-configurator').'
                 </label>
                 <br />
 
