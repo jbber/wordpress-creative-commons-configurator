@@ -6,7 +6,7 @@ Requires at least: 2.7
 Tested up to: 3.3.2
 Stable tag: 1.3.2
 
-Adds Creative Commons license information to your posts, pages and feeds. Fully customizable.
+Adds Creative Commons license information to your posts, pages, attachment pages and feeds. Fully customizable.
 
 
 == Description ==
@@ -19,7 +19,7 @@ Features at a glance:
 - License selection by using the web-based license selection API from CreativeCommons.org.
 - The license information can be reset at any time. This action also removes the options that are stored in the WordPress database.
 - Adds license information to:
- - The HTML head area of the every blog page (this is for search engine bots only - Not visible to human visitors).
+ - The HTML head area (Not visible to human visitors).
  - The Atom, RSS 2.0 and RDF (RSS 1.0) feeds through the Creative Commons RSS module, which validates properly. This option is compatible only with WordPress 2 or newer due to technical reasons.
  - Displays a block with license information under the published content. Basic customization (license information and formatting) is available through the configuration panel.
 - Some template tags are provided for use in your theme templates.
