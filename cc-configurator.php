@@ -664,33 +664,20 @@ function bccl_full_html_license($button = "default") {
 }
 
 
-function bccl_get_license_block($work = "", $css_class = "", $show_button = "default", $button = "default", $internal_use = FALSE) {
+function bccl_get_license_block($work = "", $css_class = "", $show_button = "default", $button = "default") {
     /*
     This function should not be used in template tags.
     
     $work: The work that is licensed can be defined by the user.
     
-    $internal_use:
-    DO NOT USE WHEN CALLING THE FUNCTION FROM WITHIN A TEMPLATE!!
-    This argument is used in order to also check if the user has enabled
-    the display of the license block in the plugin configuration panel.
-    
     $show_button: (default, yes, no) - no explanation (TODO possibly define icon URL)
     
     $button: The user can se the desired button (hidden feature): "0", "1", "2"
     
-    The function returns FALSE *only* when $internal_use is TRUE and if the
-    user has *not* set the option to display a license block under each post.
     */
     $cc_block = "LICENSE BLOCK ERROR";
     $cc_settings = get_option("cc_settings");
     if (!$cc_settings) { return ""; }
-    
-    if ($internal_use) {
-        if ( $cc_settings["options"]["cc_body"] != "1" ) {
-            return FALSE;
-        }
-    }
     
     // Set CSS class
     if (empty($css_class)) {
@@ -795,15 +782,22 @@ function bccl_add_to_header() {
      * if it is single-post view
     */
     $cc_settings = get_option("cc_settings");
-    if (!$cc_settings) { return ""; }
+    if ( !is_singular() ) {
+        return "";
+    } elseif ( is_attachment() && ($cc_settings["options"]["cc_body_attachments"] != "1") ) {
+        return "";
+    } elseif ( is_single() && ($cc_settings["options"]["cc_body"] != "1") ) {
+        return "";
+    } elseif ( is_page() && ($cc_settings["options"]["cc_body_pages"] != "1") ) {
+        return "";
+    }
     
-    echo "\n<!-- Creative Commons License added by Creative-Commons-Configurator plugin - Get it at: http://www.g-loaded.eu/ -->\n";
-    
-    if ( $cc_settings["license_url"] && $cc_settings["options"]["cc_head"] == "1" ) {
+    if ( !empty($cc_settings["license_url"]) && $cc_settings["options"]["cc_head"] == "1" ) {
+        echo "\n<!-- Creative Commons License added by Creative-Commons-Configurator plugin for WordPress\nGet the plugin at: http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/ -->\n";
         // Adds a link element with "license" relation in the web page HEAD area.
         echo "<link rel=\"license\" type=\"text/html\" href=\"" . bccl_get_license_url() . "\" />\n\n";
     }
-    if (is_single() && $cc_settings["options"]["cc_body"] == "1" && $cc_settings["options"]["cc_no_style"] != "1") {
+    if ( $cc_settings["options"]["cc_no_style"] != "1" ) {
         // Adds style for the license block
         $color = $cc_settings["options"]["cc_color"];
         $bgcolor = $cc_settings["options"]["cc_bgcolor"];
@@ -846,15 +840,23 @@ function bccl_append_to_post_body($PostBody) {
     content is performed in bccl_get_license_block(), in order not to retrieve
     the saved settings two timesor pass them between functions.
     */
-    if ( is_single() ) {
-        $cc_block = bccl_get_license_block("", "", "default", "default", TRUE);
-        if ( $cc_block ) {
-            $PostBody .= bccl_add_placeholders($cc_block);
-        }
+    $cc_settings = get_option("cc_settings");
+    if ( !is_singular() ) { // Possibly not necessary
+        return $PostBody;
+    } elseif ( is_attachment() && ($cc_settings["options"]["cc_body_attachments"] != "1") ) {
+        return $PostBody;
+    } elseif ( is_single() && ($cc_settings["options"]["cc_body"] != "1") ) {
+        return $PostBody;
+    } elseif ( is_page() && ($cc_settings["options"]["cc_body_pages"] != "1") ) {
+        return $PostBody;
+    }
+    // Append the license block to the content
+    $cc_block = bccl_get_license_block("", "", "default", "default");
+    if ( $cc_block ) {
+        $PostBody .= bccl_add_placeholders($cc_block);
     }
     return $PostBody;
 }
-
 
 // ACTION
 
