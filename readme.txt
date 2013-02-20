@@ -3,8 +3,8 @@ License: Apache License v2
 Donate link: http://www.g-loaded.eu/about/donate/
 Tags: cc, license, metadata, legal, creative, commons, seo, attribution, copyright, cc license, creative commons, rights
 Requires at least: 2.7
-Tested up to: 3.3.2
-Stable tag: 1.4.0
+Tested up to: 3.5.1
+Stable tag: 1.4.1
 
 Adds Creative Commons license information to your posts, pages, attachment pages and feeds. Fully customizable.
 
@@ -64,6 +64,7 @@ Please, use our [issue database](http://www.codetrax.org/projects/wp-cc-configur
 
 In the following list there are links to the changelog of each release:
 
+- [1.4.1](http://www.codetrax.org/versions/134)
 - [1.4.0](http://www.codetrax.org/versions/128)
 - [1.3.2](http://www.codetrax.org/versions/131)
 - [1.3.1](http://www.codetrax.org/versions/129)

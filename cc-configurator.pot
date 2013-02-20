@@ -4,7 +4,7 @@
 #
 #  http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/
 #
-#  Copyright (C) 2006-2012 George Notaras <gnot@g-loaded.eu>
+#  Copyright (C) 2006-2013 George Notaras <gnot@g-loaded.eu>
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: cc-configurator 1.3.2\n"
+"Project-Id-Version: cc-configurator 1.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-15 21:04+0300\n"
+"POT-Creation-Date: 2013-02-20 14:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,11 +37,11 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: cc-configurator.php:62 cc-configurator.php:199 cc-configurator.php:229
+#: cc-configurator.php:62 cc-configurator.php:204 cc-configurator.php:234
 msgid "License Settings"
 msgstr ""
 
-#: cc-configurator.php:62 cc-configurator.php:522
+#: cc-configurator.php:62 cc-configurator.php:543
 msgid "License"
 msgstr ""
 
@@ -49,310 +49,310 @@ msgstr ""
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: cc-configurator.php:130
+#: cc-configurator.php:134
 msgid "Creative Commons license options saved."
 msgstr ""
 
-#: cc-configurator.php:138
+#: cc-configurator.php:142
 msgid "Creative Commons license options deleted from the WordPress database."
 msgstr ""
 
-#: cc-configurator.php:155
+#: cc-configurator.php:159
 msgid "Creative Commons license saved."
 msgstr ""
 
-#: cc-configurator.php:200
+#: cc-configurator.php:205
 msgid "Welcome to the administration panel of the Creative-Commons-Configurator plugin for WordPress."
 msgstr ""
 
-#: cc-configurator.php:202
+#: cc-configurator.php:207
 msgid "Select License"
 msgstr ""
 
-#: cc-configurator.php:203
+#: cc-configurator.php:208
 msgid "A license has not been set for your content. By pressing the following link you will be taken to the license selection wizard hosted by the Creative Commons Corporation. Once you have completed the license selection process, you will be redirected back to this page."
 msgstr ""
 
-#: cc-configurator.php:212
+#: cc-configurator.php:217
 msgid "New License"
 msgstr ""
 
-#: cc-configurator.php:234
+#: cc-configurator.php:239
 msgid "Current License"
 msgstr ""
 
-#: cc-configurator.php:235
+#: cc-configurator.php:240
 msgid "A license has been set and will be used to license your work."
 msgstr ""
 
-#: cc-configurator.php:236
+#: cc-configurator.php:241
 msgid "If you need to set a different license, press the <em>Reset License</em> button below. By reseting the license, the saved plugin options are removed from the WordPress database."
 msgstr ""
 
-#: cc-configurator.php:239
+#: cc-configurator.php:244
 msgid "Reset License"
 msgstr ""
 
-#: cc-configurator.php:245
+#: cc-configurator.php:250
 msgid "Message from the author"
 msgstr ""
 
-#: cc-configurator.php:246
-msgid "<em>CC-Configurator</em> is released under the terms of the <a href=\"http://www.apache.org/licenses/LICENSE-2.0.html\">Apache License version 2</a> and, therefore, is <strong>free software</strong>."
-msgstr ""
-
-#: cc-configurator.php:247
-msgid "However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful, I would appreciate an <a href=\"http://www.g-loaded.eu/about/donate/\">extra cup of coffee</a>."
-msgstr ""
-
-#: cc-configurator.php:248
-msgid "Thank you in advance"
-msgstr ""
-
-#: cc-configurator.php:249
+#: cc-configurator.php:254
 msgid "This message can de deactivated in the settings below."
 msgstr ""
 
-#: cc-configurator.php:253
+#: cc-configurator.php:258
 msgid "Configuration"
 msgstr ""
 
-#: cc-configurator.php:254
+#: cc-configurator.php:259
 msgid "Here you can choose where and how license information should be added to your blog."
 msgstr ""
 
-#: cc-configurator.php:262 cc-configurator.php:265
-msgid "Page Head HTML"
-msgstr ""
-
-#: cc-configurator.php:268
-msgid "Include license information in the page's HTML head. This will not be visible to human visitors, but search engine bots will be able to read it. (Recommended)"
-msgstr ""
-
-#: cc-configurator.php:276 cc-configurator.php:279
+#: cc-configurator.php:267 cc-configurator.php:270
 msgid "Syndicated Content"
 msgstr ""
 
-#: cc-configurator.php:282
-msgid "Include license information in the blog feeds. (Recommended)"
+#: cc-configurator.php:273
+msgid "Include license information in the blog feeds. (<em>Recommended</em>)"
 msgstr ""
 
-#: cc-configurator.php:290 cc-configurator.php:293
+#: cc-configurator.php:281 cc-configurator.php:284
+msgid "Page Head HTML"
+msgstr ""
+
+#: cc-configurator.php:287
+msgid "Include license information in the page's HTML head. This will not be visible to human visitors, but search engine bots will be able to read it. Note that the insertion of license information in the HTML head is done in relation to the content types (posts, pages or attachment pages) on which the license text block is displayed (see the <em>text block</em> settings below). (<em>Recommended</em>)"
+msgstr ""
+
+#: cc-configurator.php:295 cc-configurator.php:298
 msgid "Text Block"
 msgstr ""
 
-#: cc-configurator.php:297
-msgid "Add the text block with license information under the published content in single-post view. By enabling this option, a small block of text, which contains links to the author, the work and the used license, is appended to the published content. (Recommended)"
+#: cc-configurator.php:300
+msgid "By enabling the following options, a small block of text, which contains links to the author, the work and the used license, is appended to the published content."
 msgstr ""
 
-#: cc-configurator.php:303
-msgid "Include the license image in the text block under the content."
+#: cc-configurator.php:304
+msgid "Posts: Add the text block with license information under the published posts. (<em>Recommended</em>)"
 msgstr ""
 
-#: cc-configurator.php:311 cc-configurator.php:315
+#: cc-configurator.php:310
+msgid "Pages: Add the text block with license information under the published pages."
+msgstr ""
+
+#: cc-configurator.php:316
+msgid "Attachments: Add the text block with license information under the attached content in attachment pages."
+msgstr ""
+
+#: cc-configurator.php:320
+msgid "By enabling the following option, the license image is also included in the license text block."
+msgstr ""
+
+#: cc-configurator.php:324
+msgid "Include the license image in the text block."
+msgstr ""
+
+#: cc-configurator.php:332 cc-configurator.php:336
 msgid "Extra Text Block Customization"
 msgstr ""
 
-#: cc-configurator.php:313 cc-configurator.php:359
+#: cc-configurator.php:334 cc-configurator.php:380
 msgid "The following settings have an effect only if the text block containing licensing information has been enabled above."
 msgstr ""
 
-#: cc-configurator.php:319
+#: cc-configurator.php:340
 msgid "Include extended information about the published work and its creator. By enabling this option, hyperlinks to the published content and its creator/publisher are also included into the license statement inside the block. This, by being an attribution example itself, will generally help others to attribute the work to you."
 msgstr ""
 
-#: cc-configurator.php:337
+#: cc-configurator.php:358
 msgid "If extended information about the published work has been enabled, then you can choose which name will indicate the creator of the work. By default, the blog name is used."
 msgstr ""
 
-#: cc-configurator.php:345
+#: cc-configurator.php:366
 msgid "If you have added any extra permissions to your license, provide the URL to the webpage that contains them. It is highly recommended to use absolute URLs."
 msgstr ""
 
-#: cc-configurator.php:347
+#: cc-configurator.php:368
 msgid "Example"
 msgstr ""
 
-#: cc-configurator.php:357 cc-configurator.php:361
+#: cc-configurator.php:378 cc-configurator.php:382
 msgid "Colors of the text block"
 msgstr ""
 
-#: cc-configurator.php:365
+#: cc-configurator.php:386
 msgid "Set a color for the text that appears within the block (does not affect hyperlinks)."
 msgstr ""
 
-#: cc-configurator.php:367 cc-configurator.php:376 cc-configurator.php:385
+#: cc-configurator.php:388 cc-configurator.php:397 cc-configurator.php:406
 msgid "Default"
 msgstr ""
 
-#: cc-configurator.php:374
+#: cc-configurator.php:395
 msgid "Set a background color for the block."
 msgstr ""
 
-#: cc-configurator.php:383
+#: cc-configurator.php:404
 msgid "Set a color for the border of the block."
 msgstr ""
 
-#: cc-configurator.php:392
+#: cc-configurator.php:413
 msgid "Disable the internal formatting of the license block. If the internal formatting is disabled, then the color selections above have no effect any more. You can still format the license block via your own CSS. The <em>cc-block</em> and <em>cc-button</em> classes have been reserved for formatting the license block and the license button respectively."
 msgstr ""
 
-#: cc-configurator.php:401 cc-configurator.php:404
+#: cc-configurator.php:422 cc-configurator.php:425
 msgid "Donations"
 msgstr ""
 
-#: cc-configurator.php:407
+#: cc-configurator.php:428
 msgid "By checking this, the <em>message from the author</em> above goes away. Thanks for <a href=\"http://www.g-loaded.eu/about/donate/\">donating</a>!"
 msgstr ""
 
-#: cc-configurator.php:420
+#: cc-configurator.php:441
 msgid "Save Changes"
 msgstr ""
 
-#: cc-configurator.php:429
+#: cc-configurator.php:450
 msgid "Advanced Info"
 msgstr ""
 
-#: cc-configurator.php:430
+#: cc-configurator.php:451
 msgid "Apart from the options above for the inclusion of licensing information in your blog, this plugin provides some <em>Template Tags</em>, which can be used in your theme templates. These are the following:"
 msgstr ""
 
-#: cc-configurator.php:437
+#: cc-configurator.php:458
 msgid "Text Hyperlink"
 msgstr ""
 
-#: cc-configurator.php:439
+#: cc-configurator.php:460
 msgid "Returns the text hyperlink of your current license for use in the PHP code."
 msgstr ""
 
-#: cc-configurator.php:441
+#: cc-configurator.php:462
 msgid "Displays the text hyperlink."
 msgstr ""
 
-#: cc-configurator.php:446
+#: cc-configurator.php:467
 msgid "Image Hyperlink"
 msgstr ""
 
-#: cc-configurator.php:448
+#: cc-configurator.php:469
 msgid "Returns the image hyperlink of the current license."
 msgstr ""
 
-#: cc-configurator.php:450
+#: cc-configurator.php:471
 msgid "Displays the image hyperlink of the current license."
 msgstr ""
 
-#: cc-configurator.php:455
+#: cc-configurator.php:476
 msgid "License URIs"
 msgstr ""
 
-#: cc-configurator.php:457
+#: cc-configurator.php:478
 msgid "Returns the license's URL."
 msgstr ""
 
-#: cc-configurator.php:459
+#: cc-configurator.php:480
 msgid "Returns the license's Deed URL. Usually this is the same URI as returned by the bccl_get_license_url() function."
 msgstr ""
 
-#: cc-configurator.php:464
+#: cc-configurator.php:485
 msgid "Full HTML Code"
 msgstr ""
 
-#: cc-configurator.php:466
+#: cc-configurator.php:487
 msgid "Returns the full HTML code of the license. This includes the text and the image hyperlinks."
 msgstr ""
 
-#: cc-configurator.php:468
+#: cc-configurator.php:489
 msgid "Displays the full HTML code of the license. This includes the text and the image hyperlinks."
 msgstr ""
 
-#: cc-configurator.php:473
+#: cc-configurator.php:494
 msgid "Complete License Block"
 msgstr ""
 
-#: cc-configurator.php:475
+#: cc-configurator.php:496
 msgid "Displays a complete license block. This template tag can be used to publish specific original work under the current license or in order to display the license block at custom locations on your website. This function supports the following arguments"
 msgstr ""
 
-#: cc-configurator.php:477 cc-configurator.php:478 cc-configurator.php:479
+#: cc-configurator.php:498 cc-configurator.php:499 cc-configurator.php:500
 msgid "alphanumeric"
 msgstr ""
 
-#: cc-configurator.php:477
+#: cc-configurator.php:498
 msgid "This argument is used to define the work to be licensed. Its use is optional, when the template tag is used in single-post view. If not defined, the user-defined settings for the default license block are used."
 msgstr ""
 
-#: cc-configurator.php:478
+#: cc-configurator.php:499
 msgid "This argument sets the name of the CSS class that will be used to format the license block. It is optional. If not defined, then the default class <em>cc-block</em> is used."
 msgstr ""
 
-#: cc-configurator.php:479
+#: cc-configurator.php:500
 msgid "This argument is optional. It can be used in order to control the appearance of the license icon."
 msgstr ""
 
-#: cc-configurator.php:485
+#: cc-configurator.php:506
 msgid "Licence Documents"
 msgstr ""
 
-#: cc-configurator.php:487
+#: cc-configurator.php:508
 msgid "Displays the license's summary document in an <em>iframe</em>."
 msgstr ""
 
-#: cc-configurator.php:489
+#: cc-configurator.php:510
 msgid "Displays the license's full legal code in an <em>iframe</em>."
 msgstr ""
 
-#: cc-configurator.php:522
+#: cc-configurator.php:543
 msgid "Creative Commons"
 msgstr ""
 
-#: cc-configurator.php:578
+#: cc-configurator.php:599
 msgid "Creative Commons License"
 msgstr ""
 
-#: cc-configurator.php:700
+#: cc-configurator.php:708
 msgid "The"
 msgstr ""
 
-#: cc-configurator.php:700
+#: cc-configurator.php:708
 msgid "by"
 msgstr ""
 
-#: cc-configurator.php:702
+#: cc-configurator.php:710
 msgid "This work"
 msgstr ""
 
-#: cc-configurator.php:705
-msgid "ERROR (cc-configurator): you must define the work to be licenced, if not using this template tag in single-post view."
-msgstr ""
-
-#: cc-configurator.php:707
+#: cc-configurator.php:713
 msgid "unless otherwise expressly stated"
 msgstr ""
 
-#: cc-configurator.php:707
+#: cc-configurator.php:713
 msgid "is licensed under a"
 msgstr ""
 
-#: cc-configurator.php:711
+#: cc-configurator.php:717
 msgid "Terms and conditions beyond the scope of this license may be available at"
 msgstr ""
 
-#: cc-configurator.php:737
+#: cc-configurator.php:743
 msgid "Blog Name"
 msgstr ""
 
-#: cc-configurator.php:738
+#: cc-configurator.php:744
 msgid "First + Last Name"
 msgstr ""
 
-#: cc-configurator.php:739
+#: cc-configurator.php:745
 msgid "Last + First Name"
 msgstr ""
 
-#: cc-configurator.php:740
+#: cc-configurator.php:746
 msgid "Nickname"
 msgstr ""
 
-#: cc-configurator.php:741
+#: cc-configurator.php:747
 msgid "Displayed Name"
 msgstr ""
