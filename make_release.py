@@ -7,6 +7,7 @@ REL_FILES = [
     'LICENSE',
     'NOTICE',
     'README',
+    'readme.txt',
     'screenshot-1.png',
     'uninstall.php',
 ]
