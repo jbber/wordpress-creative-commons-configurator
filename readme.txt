@@ -3,7 +3,7 @@ License: Apache License v2
 Donate link: http://www.g-loaded.eu/about/donate/
 Tags: cc, license, metadata, legal, creative, commons, seo, attribution, copyright, cc license, creative commons, rights
 Requires at least: 2.7
-Tested up to: 3.5.1
+Tested up to: 3.7.1
 Stable tag: 1.4.1
 
 Adds Creative Commons license information to your posts, pages, attachment pages and feeds. Fully customizable.
