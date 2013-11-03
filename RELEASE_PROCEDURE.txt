@@ -1,0 +1,33 @@
+1. Change version in plugin PHP file.
+2. Add contributors in CONTRIBUTORS.
+3. Change stable tag in readme.txt
+4. Add link to changelog in the relevant section in readme.txt
+6. Run ``make_release.py``.
+5. Commit changes in mercurial and add tag.
+7. Upload the created distribution file to CodeTRAX
+8. Copy the created file in ``Wordpress.org\creative-commons-configurator-1\trunk`` and extract contents here.
+9. Add any new files using:
+
+    svn add <file1> <dir1>
+
+10. Commit the release:
+
+    svn commit -m "Committing the N.N.N release of Creative-Commons-Configurator"
+
+11. Tag the new release in the SVN repository:
+
+    cd ..
+    svn cp trunk tags/N.N.N
+    svn commit -m "Tagging the N.N.N release"
+
+
+Translations
+------------
+
+Compile PO to MO
+
+- Linux:
+    msgfmt -c -f -o cc-configurator-xx_XX.mo cc-configurator-xx_XX.po
+- Windows:
+    "C:\Program Files (x86)\Gettext\bin\msgfmt.exe" -c -f -o cc-configurator-xx_XX.mo cc-configurator-xx_XX.po
+
