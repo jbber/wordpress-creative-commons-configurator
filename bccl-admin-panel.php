@@ -15,6 +15,24 @@ function bccl_show_info_msg($msg) {
 
 
 
+/** Enqueue scripts and styles
+ *  From: http://codex.wordpress.org/Plugin_API/Action_Reference/admin_enqueue_scripts#Example:_Target_a_Specific_Admin_Page
+ *  For a better way to add custom scripts and styles:
+ *  - http://codex.wordpress.org/Function_Reference/wp_enqueue_script#Link_Scripts_Only_on_a_Plugin_Administration_Screen
+ *  - http://codex.wordpress.org/Function_Reference/wp_enqueue_style#Load_stylesheet_only_on_a_plugin.27s_options_page
+ */
+function bccl_my_enqueue($hook) {
+    //var_dump($hook);
+    if ( 'settings_page_cc-configurator-options' != $hook ) {
+        return;
+    }
+    wp_enqueue_script('thickbox');
+    wp_enqueue_style('thickbox');
+}
+//add_action( 'admin_enqueue_scripts', 'bccl_my_enqueue' );
+
+
+
 function bccl_select_license() {
     /*
      * License selection using the partner interface.
@@ -26,17 +44,24 @@ function bccl_select_license() {
     if ( is_ssl() ) {
         $proto = 'https';
     }
-    // Collect information
+    // Partner Interface URL
     $cc_partner_interface_url = "$proto://creativecommons.org/license/";
-    $partner = "WordPress/CC-Configurator Plugin";
-    $partner_icon_url = get_bloginfo("url") . "/wp-admin/images/wordpress-logo.png";
-    $jurisdiction_choose = "1";
-    $lang = get_bloginfo('language');
-    // $exit_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "&license_url=[license_url]&license_name=[license_name]&license_button=[license_button]&deed_url=[deed_url]&new_license=1";
-    $exit_url = site_url($_SERVER['REQUEST_URI'], $proto) . "&license_url=[license_url]&license_name=[license_name]&license_button=[license_button]&deed_url=[deed_url]&new_license=1";
+
+    // Collect Query Arguments
+    $partner = urlencode( 'WordPress-Creative-Commons-Configurator-Plugin' );
+    $partner_icon_url = admin_url( 'images/wordpress-logo.png' );
+    $jurisdiction_choose = '1';
+    $lang = urlencode( get_bloginfo('language') );
+    $exit_url = urlencode( admin_url( 'options-general.php?page=cc-configurator-options' ) . 
+        "&license_url=[license_url]&license_name=[license_name]&license_button=[license_button]&deed_url=[deed_url]&new_license=1" );
+
+    // Construct Query String
+    $cc_partner_interface_query_string = "partner=$partner&partner_icon_url=$partner_icon_url&jurisdiction_choose=$jurisdiction_choose&lang=$lang&exit_url=$exit_url";
 
     // Not currently used. Could be utilized to present the partner interace in an iframe.
-    $Partner_Interface_URI = htmlspecialchars("$proto://creativecommons.org/license/?partner=$partner&partner_icon_url=$partner_icon_url&jurisdiction_choose=$jurisdiction_choose&lang=$lang&exit_url=$exit_url");
+    //$Partner_Interface_URI = htmlspecialchars("$proto://creativecommons.org/license/?");
+    //$Partner_Interface_URI = "$proto://creativecommons.org/license/?" . $cc_partner_interface_query_string;
+
 
     print('
     <div class="wrap">
@@ -48,17 +73,24 @@ function bccl_select_license() {
         <p>'.__('A license has not been set for your content. By pressing the following link you will be taken to the license selection wizard hosted by the Creative Commons Corporation. Once you have completed the license selection process, you will be redirected back to this page.', 'cc-configurator').'</p>
 
         <form name="formnewlicense" id="bccl-new-license-form" method="get" action="' . $cc_partner_interface_url . '">
-            <input type="hidden" name="partner" value="'.$partner.'" />
-            <input type="hidden" name="partner_icon_url" value="'.$partner_icon_url.'" />
-            <input type="hidden" name="jurisdiction_choose" value="'.$jurisdiction_choose.'" />
-            <input type="hidden" name="lang" value="'.$lang.'" />
-            <input type="hidden" name="exit_url" value="'.$exit_url.'" />
+            <input type="hidden" name="partner" value="' . $partner . '" />
+            <input type="hidden" name="partner_icon_url" value="' . $partner_icon_url . '" />
+            <input type="hidden" name="jurisdiction_choose" value="' . $jurisdiction_choose . '" />
+            <input type="hidden" name="lang" value="' . $lang . '" />
+            <input type="hidden" name="exit_url" value="' . $exit_url . '" />
+
             <p class="submit">
                 <input id="submit" class="button-primary" type="submit" value="'.__('New License', 'cc-configurator').'" name="new-license-button" />
             </p>
         </form>
 
     </div>');
+
+    /**
+     * See here for info about displaying the CC Partner Interface in thickbox:
+     * http://www.codetrax.org/issues/1111
+     */
+
 }
 
 
