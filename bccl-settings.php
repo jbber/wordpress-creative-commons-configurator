@@ -1,6 +1,41 @@
 <?php
 
 
+/**
+ * Module containing settings related functions.
+ */
+
+
+/**
+ * Returns an array with the default options.
+ */
+function bccl_get_default_options() {
+    return array(
+        "settings_version"  => 1,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented for auto upgrade of settings.
+        "license_url"       => "",
+        "license_name"      => "",
+        "license_button"    => "",
+        "deed_url"          => "",
+        "options"           => array(
+            "cc_head"       => "0",
+            "cc_feed"       => "0",
+            "cc_body"       => "0",
+            "cc_body_pages" => "0",
+            "cc_body_attachments"   => "0",
+            "cc_body_img"   => "0",
+            "cc_extended"   => "0",
+            "cc_creator"    => "blogname",
+            "cc_perm_url"   => "",
+            "cc_color"      => "#000000",
+            "cc_bgcolor"    => "#eef6e6",
+            "cc_brdr_color" => "#cccccc",
+            "cc_no_style"   => "0",
+            "cc_i_have_donated" => "0",
+        )
+    );
+}
+
+
 
 function bccl_license_options () {
     // Permission Check
