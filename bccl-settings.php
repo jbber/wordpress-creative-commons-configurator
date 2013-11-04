@@ -11,29 +11,105 @@
  */
 function bccl_get_default_options() {
     return array(
-        "settings_version"  => 1,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented for auto upgrade of settings.
+        "settings_version"  => 2,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented for auto upgrade of settings.
         "license_url"       => "",
         "license_name"      => "",
         "license_button"    => "",
         "deed_url"          => "",
-        "options"           => array(
-            "cc_head"       => "0",
-            "cc_feed"       => "0",
-            "cc_body"       => "0",
-            "cc_body_pages" => "0",
-            "cc_body_attachments"   => "0",
-            "cc_body_img"   => "0",
-            "cc_extended"   => "0",
-            "cc_creator"    => "blogname",
-            "cc_perm_url"   => "",
-            "cc_color"      => "#000000",
-            "cc_bgcolor"    => "#eef6e6",
-            "cc_brdr_color" => "#cccccc",
-            "cc_no_style"   => "0",
-            "cc_i_have_donated" => "0",
-        )
+        "cc_head"       => "0",
+        "cc_feed"       => "0",
+        "cc_body"       => "0",
+        "cc_body_pages" => "0",
+        "cc_body_attachments"   => "0",
+        "cc_body_img"   => "0",
+        "cc_extended"   => "0",
+        "cc_creator"    => "blogname",
+        "cc_perm_url"   => "",
+        "cc_color"      => "#000000",
+        "cc_bgcolor"    => "#eef6e6",
+        "cc_brdr_color" => "#cccccc",
+        "cc_no_style"   => "0",
+        "cc_i_have_donated" => "0"
     );
 }
+
+
+
+/**
+ * Performs upgrade of the plugin settings.
+ */
+function bccl_plugin_upgrade() {
+
+    // First we try to determine if this is a new installation or if the
+    // current installation requires upgrade.
+
+    // Default CC-Configurator Settings
+    $default_options = bccl_get_default_options();
+
+    // Try to get the current CC-Configurator options from the database
+    $stored_options = get_option('cc_settings');
+    if ( empty($stored_options) ) {
+        // This is the first run, so set our defaults.
+        update_option('cc_settings', $default_options);
+        return;
+    }
+
+    // Check the settings version
+
+    // If the settings version of the default options matches the settings version
+    // of the stored options, there is no need to upgrade.
+    if (array_key_exists('settings_version', $stored_options) &&
+            ( intval($stored_options["settings_version"]) == intval($default_options["settings_version"]) ) ) {
+        // Settings are up to date. No upgrade required.
+        return;
+    }
+
+    // On any other case a settings upgrade is required.
+
+    // 1) Add any missing options to the stored CC-Configurator options
+    foreach ($default_options as $opt => $value) {
+        // Always upgrade the ``settings_version`` option
+        if ($opt == 'settings_version') {
+            $stored_options['settings_version'] = $value;
+        }
+        // Add missing options
+        elseif ( !array_key_exists($opt, $stored_options) ) {
+            $stored_options[$opt] = $value;
+        }
+        // Existing stored options are untouched here.
+    }
+
+    // 2) Migrate any current options to new ones.
+    // Migration rules should go here.
+
+    // Version 1.4.2 (settings_version 1->2)
+    // Settings from $cc_settings['options'] inner array moved to $cc_settings root
+    // Migration is required.
+    if ( array_key_exists( 'options', $stored_options ) ) {
+        // Step 1: All options saved in $cc_settings['options'] are moved to $cc_settings root
+        foreach ( $stored_options['options'] as $opt => $value ) {
+            $stored_options[$opt] = $value;
+        }
+        // Step 2: Delete $stored_options['options']
+        unset( $stored_options['options'] );
+    }
+    
+    // Version X.X.X (settings_version N->N)
+    // Add other migration here
+
+    // 3) Clean stored options.
+    foreach ($stored_options as $opt => $value) {
+        if ( ! array_key_exists($opt, $default_options) ) {
+            // Remove any options that do not exist in the default options.
+            unset($stored_options[$opt]);
+        }
+    }
+
+    // Finally save the updated options.
+    update_option('cc_settings', $stored_options);
+
+}
+add_action('plugins_loaded', 'bccl_plugin_upgrade');
 
 
 
