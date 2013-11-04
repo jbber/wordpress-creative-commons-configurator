@@ -354,7 +354,7 @@ function bccl_add_to_header() {
         $bgcolor = $cc_settings["cc_bgcolor"];
         $brdrcolor = $cc_settings["cc_brdr_color"];
         $bccl_default_block_style = "width: 90%; margin: 8px auto; padding: 4px; text-align: center; border: 1px solid $brdrcolor; color: $color; background-color: $bgcolor;";
-        $style = "<style type=\"text/css\"><!--\n.cc-block { $bccl_default_block_style }\n--></style>\n\n";
+        $style = "<style type=\"text/css\"><!--\np.cc-block { $bccl_default_block_style }\n--></style>\n\n";
         echo $style;
     }
 }
