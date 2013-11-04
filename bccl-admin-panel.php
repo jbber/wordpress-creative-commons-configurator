@@ -121,7 +121,7 @@ function bccl_set_license_options($cc_settings) {
     <div class="wrap" style="background: #EEF6E6; padding: 1em 2em; border: 1px solid #E4E4E4;' . (($cc_settings["options"]["cc_i_have_donated"]=="1") ? ' display: none;' : '') . '">
         <h2>'.__('Message from the author', 'cc-configurator').'</h2>
         <p style="font-size: 1.2em; padding-left: 2em;"><em>CC-Configurator</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>free software</strong>.</p>
-        <p style="font-size: 1.2em; padding-left: 2em;">However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful, I would appreciate an <a href="http://www.g-loaded.eu/about/donate/">extra cup of coffee</a>.</p>
+        <p style="font-size: 1.2em; padding-left: 2em;">However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful, you can show your appreciation of the effort by buying me an <a href="http://www.g-loaded.eu/about/donate/">extra cup of coffee</a>.</p>
         <p style="font-size: 1.2em; padding-left: 2em;">Thank you in advance</p>
         <div style="text-align: right;"><small>'.__('This message can de deactivated in the settings below.', 'cc-configurator').'</small></div>
     </div>
