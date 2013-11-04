@@ -237,7 +237,7 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
     
     // License button inclusion
     if ($show_button == "default") {
-        if ($cc_settings["options"]["cc_body_img"]) {
+        if ($cc_settings["cc_body_img"]) {
             $button_code = bccl_get_license_image_hyperlink($button) . "<br />";
         }
     } elseif ($show_button == "yes") {
@@ -251,8 +251,8 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
     // Work analysis
     if ( empty($work) ) {
         // Proceed only if the user has not defined the work.
-        if ( $cc_settings["options"]["cc_extended"] ) {
-            $creator = bccl_get_the_creator($cc_settings["options"]["cc_creator"]);
+        if ( $cc_settings["cc_extended"] ) {
+            $creator = bccl_get_the_creator($cc_settings["cc_creator"]);
             $work = "<em><a href=\"" . get_permalink() . "\">" . get_the_title() . "</a></em>";
             $by = "<em><a href=\"" . get_bloginfo("url") . "\">" . $creator . "</a></em>";
             $work = sprintf("%s %s %s %s", __("The", 'cc-configurator'), $work, __("by", 'cc-configurator'), $by);
@@ -263,8 +263,8 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
     $work .= sprintf(", ".__('unless otherwise expressly stated', 'cc-configurator').", ".__('is licensed under a', 'cc-configurator')." %s.", bccl_get_license_text_hyperlink());
     
     // Additional Permissions
-    if ( $cc_settings["options"]["cc_perm_url"] ) {
-        $additional_perms = " ".__('Terms and conditions beyond the scope of this license may be available at', 'cc-configurator')." <a href=\"" . $cc_settings["options"]["cc_perm_url"] . "\">" . $_SERVER["HTTP_HOST"] . "</a>.";
+    if ( $cc_settings["cc_perm_url"] ) {
+        $additional_perms = " ".__('Terms and conditions beyond the scope of this license may be available at', 'cc-configurator')." <a href=\"" . $cc_settings["cc_perm_url"] . "\">" . $_SERVER["HTTP_HOST"] . "</a>.";
     } else {
         $additional_perms = "";
     }
@@ -335,24 +335,24 @@ function bccl_add_to_header() {
     $cc_settings = get_option("cc_settings");
     if ( !is_singular() ) {
         return "";
-    } elseif ( is_attachment() && ($cc_settings["options"]["cc_body_attachments"] != "1") ) {
+    } elseif ( is_attachment() && ($cc_settings["cc_body_attachments"] != "1") ) {
         return "";
-    } elseif ( is_single() && ($cc_settings["options"]["cc_body"] != "1") ) {
+    } elseif ( is_single() && ($cc_settings["cc_body"] != "1") ) {
         return "";
-    } elseif ( is_page() && ($cc_settings["options"]["cc_body_pages"] != "1") ) {
+    } elseif ( is_page() && ($cc_settings["cc_body_pages"] != "1") ) {
         return "";
     }
     
-    if ( !empty($cc_settings["license_url"]) && $cc_settings["options"]["cc_head"] == "1" ) {
+    if ( !empty($cc_settings["license_url"]) && $cc_settings["cc_head"] == "1" ) {
         echo "\n<!-- Creative Commons License added by Creative-Commons-Configurator plugin for WordPress\nGet the plugin at: http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/ -->\n";
         // Adds a link element with "license" relation in the web page HEAD area.
         echo "<link rel=\"license\" type=\"text/html\" href=\"" . bccl_get_license_url() . "\" />\n\n";
     }
-    if ( $cc_settings["options"]["cc_no_style"] != "1" ) {
+    if ( $cc_settings["cc_no_style"] != "1" ) {
         // Adds style for the license block
-        $color = $cc_settings["options"]["cc_color"];
-        $bgcolor = $cc_settings["options"]["cc_bgcolor"];
-        $brdrcolor = $cc_settings["options"]["cc_brdr_color"];
+        $color = $cc_settings["cc_color"];
+        $bgcolor = $cc_settings["cc_bgcolor"];
+        $brdrcolor = $cc_settings["cc_brdr_color"];
         $bccl_default_block_style = "width: 90%; margin: 8px auto; padding: 4px; text-align: center; border: 1px solid $brdrcolor; color: $color; background-color: $bgcolor;";
         $style = "<style type=\"text/css\"><!--\n.cc-block { $bccl_default_block_style }\n--></style>\n\n";
         echo $style;
@@ -366,7 +366,7 @@ function bccl_add_cc_ns_feed() {
     */
     $cc_settings = get_option("cc_settings");
     if (!$cc_settings) { return ""; }
-    if ( $cc_settings["options"]["cc_feed"] == "1" ) {
+    if ( $cc_settings["cc_feed"] == "1" ) {
         echo "xmlns:creativeCommons=\"http://backend.userland.com/creativeCommonsRssModule\"\n";
     }
 }
@@ -377,7 +377,7 @@ function bccl_add_cc_element_feed() {
     */
     $cc_settings = get_option("cc_settings");
     if (!$cc_settings) { return ""; }
-    if ( $cc_settings["license_url"] && $cc_settings["options"]["cc_feed"] == "1" ) {
+    if ( $cc_settings["license_url"] && $cc_settings["cc_feed"] == "1" ) {
         echo "<creativeCommons:license>" . bccl_get_license_url() . "</creativeCommons:license>\n";
     }
 }
@@ -394,11 +394,11 @@ function bccl_append_to_post_body($PostBody) {
     $cc_settings = get_option("cc_settings");
     if ( !is_singular() ) { // Possibly not necessary
         return $PostBody;
-    } elseif ( is_attachment() && ($cc_settings["options"]["cc_body_attachments"] != "1") ) {
+    } elseif ( is_attachment() && ($cc_settings["cc_body_attachments"] != "1") ) {
         return $PostBody;
-    } elseif ( is_single() && ($cc_settings["options"]["cc_body"] != "1") ) {
+    } elseif ( is_single() && ($cc_settings["cc_body"] != "1") ) {
         return $PostBody;
-    } elseif ( is_page() && ($cc_settings["options"]["cc_body_pages"] != "1") ) {
+    } elseif ( is_page() && ($cc_settings["cc_body_pages"] != "1") ) {
         return $PostBody;
     }
     // Append the license block to the content
