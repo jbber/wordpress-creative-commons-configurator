@@ -106,7 +106,7 @@ function bccl_set_license_options($cc_settings) {
         <h2>'.__('License Settings', 'cc-configurator').'</h2>
 
         <p style="text-align: center;"><big>' . bccl_get_full_html_license() . '</big></p>
-        <form name="formlicense" id="bccl_reset" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
+        <form name="formlicense" id="bccl_reset" method="post" action="' . admin_url( 'options-general.php?page=cc-configurator-options' ) . '">
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Current License', 'cc-configurator').'</span></legend>
                 <p>'.__('A license has been set and will be used to license your work.', 'cc-configurator').'</p>
@@ -130,7 +130,7 @@ function bccl_set_license_options($cc_settings) {
         <h2>'.__('Configuration', 'cc-configurator').'</h2>
         <p>'.__('Here you can choose where and how license information should be added to your blog.', 'cc-configurator').'</p>
 
-        <form name="formbccl" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
+        <form name="formbccl" method="post" action="' . admin_url( 'options-general.php?page=cc-configurator-options' ) . '">
 
         <table class="form-table">
         <tbody>
