@@ -227,6 +227,7 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
     $button: The user can se the desired button (hidden feature): "0", "1", "2"
     
     */
+
     $cc_block = "LICENSE BLOCK ERROR";
     $cc_settings = get_option("cc_settings");
     if (!$cc_settings) { return ""; }
@@ -259,9 +260,10 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
         // Proceed only if the user has not defined the work.
         if ( $cc_settings["cc_extended"] ) {
             $creator = bccl_get_the_creator($cc_settings["cc_creator"]);
+            $author_archive_url = get_author_posts_url( get_the_author_meta( 'ID' ) );
             $work = "<em><a href=\"" . get_permalink() . "\">" . get_the_title() . "</a></em>";
-            $by = "<em><a href=\"" . get_bloginfo("url") . "\">" . $creator . "</a></em>";
-            $work = sprintf("%s %s %s %s", __("The", 'cc-configurator'), $work, __("by", 'cc-configurator'), $by);
+            $by = "<em><a href=\"" . $author_archive_url . "\">" . $creator . "</a></em>";
+            $work = sprintf("'%s' %s %s", $work, __("by", 'cc-configurator'), $by);
         } else {
             $work = __('This work', 'cc-configurator');
         }
