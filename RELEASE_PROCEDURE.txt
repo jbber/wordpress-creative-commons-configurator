@@ -1,17 +1,69 @@
+
+POT FILE GENERATION
+-------------------
+1. Change version in plugin PHP file. Use an alpha or beta marker like 2.4.0a1
+2. Run make_release.py
+3. Push source language file to translation service:
+    tx push -s
+
+
+FINAL RELEASE
+-------------
+
 1. Change version in plugin PHP file.
-2. Add contributors in CONTRIBUTORS.
-3. Change stable tag in readme.txt
+
+2. Add contributors, if required, in AUTHORS.
+
+3. Change stable tag in readme.txt and 'Tested up to' if required.
+
 4. Add link to changelog in the relevant section in readme.txt
+
+5. Pull translations (only >80% completed):
+
+    tx pull --all --minimum-perc 80
+
+    For >80% reviewed:
+
+    tx pull --all --minimum-perc 80 --mode reviewed
+
+    (note: tx --debug pull --resource add-meta-tags.main --all --minimum-perc 80 --mode reviewed )
+
+   Or pull all available:
+    
+    tx pull --all
+
 6. Run ``make_release.py``.
-5. Commit changes in mercurial and add tag.
-7. Upload the created distribution file to CodeTRAX
-8. Copy the created file in ``Wordpress.org\creative-commons-configurator-1\trunk`` and extract contents here.
-9. Add any new files using:
+
+7. Go to Transifex: https://www.transifex.com/projects/p/cc-configurator/resource/main/edit/
+    And upload (Source File) the new POT file.
+   OR use the client as shown in step 1 below.
+
+8. Push source language file to translation service:
+
+    tx push -s
+
+    (note: tx push --resource add-meta-tags.main --source -l none )
+
+9. Mercurial:
+   - Add new translation files
+   - Commit changes
+   - Add tag. (format N.N.N)
+
+10. Upload the created distribution file to CodeTRAX and close the relevant version.
+
+11. Copy the created file in ``Wordpress.org\creative-commons-configurator-1\trunk`` and extract contents here.
+
+12. Add any new files using:
 
     svn add <file1> <dir1>
 
-10. Commit the release:
+    Also, remove outdated translations.
 
+    svn remove languages/lang1.po languages/lang1.mo
+
+13. Commit the release:
+
+    svn status
     svn commit -m "Committing the N.N.N release of Creative-Commons-Configurator"
 
 11. Tag the new release in the SVN repository:
