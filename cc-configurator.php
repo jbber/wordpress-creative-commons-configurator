@@ -236,6 +236,7 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
     }
     
     // License button inclusion
+    $button_code = '';
     if ($show_button == "default") {
         if ($cc_settings["cc_body_img"]) {
             $button_code = bccl_get_license_image_hyperlink($button) . "<br />";
