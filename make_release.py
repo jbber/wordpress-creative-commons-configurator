@@ -6,7 +6,7 @@ REL_FILES = [
     'cc-configurator.php',
     'bccl-settings.php',
     'bccl-admin-panel.php',
-    'bccl-template-tags',
+    'bccl-template-tags.php',
     'LICENSE',
     'NOTICE',
     'README',
@@ -17,6 +17,8 @@ REL_FILES = [
 
 REL_DIRS = [
     'languages',
+    'css',
+    'js',
 ]
 
 PLUGIN_METADATA_FILE = 'cc-configurator.php'
