@@ -4,6 +4,9 @@
 REL_FILES = [
     'AUTHORS',
     'cc-configurator.php',
+    'bccl-settings.php',
+    'bccl-admin-panel.php',
+    'bccl-template-tags',
     'LICENSE',
     'NOTICE',
     'README',
