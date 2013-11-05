@@ -433,3 +433,111 @@ function bccl_set_license_options($cc_settings) {
 }
 
 
+
+
+
+/**
+ * Adds Bccl_Widget widget.
+ */
+class Bccl_Widget extends WP_Widget {
+
+	/**
+	 * Register widget with WordPress.
+	 */
+	function __construct() {
+		parent::__construct(
+			'bccl_widget', // Base ID
+			__('Creative Commons License', 'cc-configurator'), // Name
+			array( 'description' => __( 'Licensing information', 'cc-configurator' ), ) // Description
+		);
+	}
+
+	/**
+	 * Front-end display of widget.
+	 *
+	 * @see WP_Widget::widget()
+	 *
+	 * @param array $args     Widget arguments.
+	 * @param array $instance Saved values from database.
+	 */
+	public function widget( $args, $instance ) {
+
+        $cc_settings = get_option("cc_settings");
+
+        // Check whether we should display the widget content or not.
+        // In general, if the license block is set to be displayed under the content,
+        // then the widget is suppressed.
+        if ( is_singular() && ! is_front_page() ) { // In static front pages we still want to display the widget and not append the license block to the text of the page.
+            if ( is_attachment() ) {
+                if ( $cc_settings["cc_body_attachments"] == "1" ) {
+                    return;
+                }
+            } elseif ( is_page() ) {
+                if ( $cc_settings["cc_body_pages"] == "1" ) {
+                    return;
+                }
+            } elseif ( is_single() ) {
+                if ( $cc_settings["cc_body"] == "1" ) {
+                    return;
+                }
+            }
+        }
+
+		$title = apply_filters( 'widget_title', $instance['title'] );
+
+		echo $args['before_widget'];
+		if ( ! empty( $title ) )
+			echo $args['before_title'] . $title . $args['after_title'];
+		//echo __( 'Hello, World!', 'cc-configurator' );
+        bccl_full_html_license();
+		echo $args['after_widget'];
+	}
+
+	/**
+	 * Back-end widget form.
+	 *
+	 * @see WP_Widget::form()
+	 *
+	 * @param array $instance Previously saved values from database.
+	 */
+	public function form( $instance ) {
+		if ( isset( $instance[ 'title' ] ) ) {
+			$title = $instance[ 'title' ];
+		}
+		else {
+			$title = __( 'License', 'cc-configurator' );
+		}
+		?>
+		<p>
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+		</p>
+		<?php 
+	}
+
+	/**
+	 * Sanitize widget form values as they are saved.
+	 *
+	 * @see WP_Widget::update()
+	 *
+	 * @param array $new_instance Values just sent to be saved.
+	 * @param array $old_instance Previously saved values from database.
+	 *
+	 * @return array Updated safe values to be saved.
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+
+		return $instance;
+	}
+
+} // class Bccl_Widget
+
+// register Bccl_Widget widget
+function register_bccl_widget() {
+    register_widget( 'Bccl_Widget' );
+}
+add_action( 'widgets_init', 'register_bccl_widget' );
+
+
