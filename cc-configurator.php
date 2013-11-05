@@ -266,7 +266,7 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
             $author_archive_url = get_author_posts_url( get_the_author_meta( 'ID' ) );
             $work = "<em><a href=\"" . get_permalink() . "\">" . get_the_title() . "</a></em>";
             $by = "<em><a href=\"" . $author_archive_url . "\">" . $creator . "</a></em>";
-            $work = sprintf("'%s' %s %s", $work, __("by", 'cc-configurator'), $by);
+            $work = sprintf("%s %s %s", $work, __("by", 'cc-configurator'), $by);
         } else {
             $work = __('This work', 'cc-configurator');
         }
