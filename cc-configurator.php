@@ -375,7 +375,7 @@ function bccl_add_cc_ns_feed() {
     $cc_settings = get_option("cc_settings");
     if (!$cc_settings) { return ""; }
     if ( $cc_settings["cc_feed"] == "1" ) {
-        echo "xmlns:creativeCommons=\"http://backend.userland.com/creativeCommonsRssModule\"\n";
+        echo "xmlns:creativeCommons=\"http://backend.userland.com/creativeCommonsRssModule\"" . PHP_EOL;
     }
 }
 
@@ -386,7 +386,7 @@ function bccl_add_cc_element_feed() {
     $cc_settings = get_option("cc_settings");
     if (!$cc_settings) { return ""; }
     if ( $cc_settings["license_url"] && $cc_settings["cc_feed"] == "1" ) {
-        echo "<creativeCommons:license>" . bccl_get_license_url() . "</creativeCommons:license>\n";
+        echo "<creativeCommons:license>" . bccl_get_license_url() . "</creativeCommons:license>" . PHP_EOL;
     }
 }
 
