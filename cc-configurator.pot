@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: cc-configurator 1.4.1\n"
+"Project-Id-Version: cc-configurator 1.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-20 14:22+0200\n"
+"POT-Creation-Date: 2013-11-05 20:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,326 +33,247 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: cc-configurator.php:52
+#: cc-configurator.php:61
 msgid "Settings"
 msgstr ""
 
-#: cc-configurator.php:62 cc-configurator.php:204 cc-configurator.php:234
-msgid "License Settings"
-msgstr ""
-
-#: cc-configurator.php:62 cc-configurator.php:543
-msgid "License"
-msgstr ""
-
-#: cc-configurator.php:74
-msgid "You do not have sufficient permissions to access this page."
-msgstr ""
-
-#: cc-configurator.php:134
-msgid "Creative Commons license options saved."
-msgstr ""
-
-#: cc-configurator.php:142
-msgid "Creative Commons license options deleted from the WordPress database."
-msgstr ""
-
-#: cc-configurator.php:159
-msgid "Creative Commons license saved."
-msgstr ""
-
-#: cc-configurator.php:205
-msgid "Welcome to the administration panel of the Creative-Commons-Configurator plugin for WordPress."
-msgstr ""
-
-#: cc-configurator.php:207
-msgid "Select License"
-msgstr ""
-
-#: cc-configurator.php:208
-msgid "A license has not been set for your content. By pressing the following link you will be taken to the license selection wizard hosted by the Creative Commons Corporation. Once you have completed the license selection process, you will be redirected back to this page."
-msgstr ""
-
-#: cc-configurator.php:217
-msgid "New License"
-msgstr ""
-
-#: cc-configurator.php:239
-msgid "Current License"
-msgstr ""
-
-#: cc-configurator.php:240
-msgid "A license has been set and will be used to license your work."
-msgstr ""
-
-#: cc-configurator.php:241
-msgid "If you need to set a different license, press the <em>Reset License</em> button below. By reseting the license, the saved plugin options are removed from the WordPress database."
-msgstr ""
-
-#: cc-configurator.php:244
-msgid "Reset License"
-msgstr ""
-
-#: cc-configurator.php:250
-msgid "Message from the author"
-msgstr ""
-
-#: cc-configurator.php:254
-msgid "This message can de deactivated in the settings below."
-msgstr ""
-
-#: cc-configurator.php:258
-msgid "Configuration"
-msgstr ""
-
-#: cc-configurator.php:259
-msgid "Here you can choose where and how license information should be added to your blog."
-msgstr ""
-
-#: cc-configurator.php:267 cc-configurator.php:270
-msgid "Syndicated Content"
-msgstr ""
-
-#: cc-configurator.php:273
-msgid "Include license information in the blog feeds. (<em>Recommended</em>)"
-msgstr ""
-
-#: cc-configurator.php:281 cc-configurator.php:284
-msgid "Page Head HTML"
-msgstr ""
-
-#: cc-configurator.php:287
-msgid "Include license information in the page's HTML head. This will not be visible to human visitors, but search engine bots will be able to read it. Note that the insertion of license information in the HTML head is done in relation to the content types (posts, pages or attachment pages) on which the license text block is displayed (see the <em>text block</em> settings below). (<em>Recommended</em>)"
-msgstr ""
-
-#: cc-configurator.php:295 cc-configurator.php:298
-msgid "Text Block"
-msgstr ""
-
-#: cc-configurator.php:300
-msgid "By enabling the following options, a small block of text, which contains links to the author, the work and the used license, is appended to the published content."
-msgstr ""
-
-#: cc-configurator.php:304
-msgid "Posts: Add the text block with license information under the published posts. (<em>Recommended</em>)"
-msgstr ""
-
-#: cc-configurator.php:310
-msgid "Pages: Add the text block with license information under the published pages."
-msgstr ""
-
-#: cc-configurator.php:316
-msgid "Attachments: Add the text block with license information under the attached content in attachment pages."
-msgstr ""
-
-#: cc-configurator.php:320
-msgid "By enabling the following option, the license image is also included in the license text block."
-msgstr ""
-
-#: cc-configurator.php:324
-msgid "Include the license image in the text block."
-msgstr ""
-
-#: cc-configurator.php:332 cc-configurator.php:336
-msgid "Extra Text Block Customization"
-msgstr ""
-
-#: cc-configurator.php:334 cc-configurator.php:380
-msgid "The following settings have an effect only if the text block containing licensing information has been enabled above."
-msgstr ""
-
-#: cc-configurator.php:340
-msgid "Include extended information about the published work and its creator. By enabling this option, hyperlinks to the published content and its creator/publisher are also included into the license statement inside the block. This, by being an attribution example itself, will generally help others to attribute the work to you."
-msgstr ""
-
-#: cc-configurator.php:358
-msgid "If extended information about the published work has been enabled, then you can choose which name will indicate the creator of the work. By default, the blog name is used."
-msgstr ""
-
-#: cc-configurator.php:366
-msgid "If you have added any extra permissions to your license, provide the URL to the webpage that contains them. It is highly recommended to use absolute URLs."
-msgstr ""
-
-#: cc-configurator.php:368
-msgid "Example"
-msgstr ""
-
-#: cc-configurator.php:378 cc-configurator.php:382
-msgid "Colors of the text block"
-msgstr ""
-
-#: cc-configurator.php:386
-msgid "Set a color for the text that appears within the block (does not affect hyperlinks)."
-msgstr ""
-
-#: cc-configurator.php:388 cc-configurator.php:397 cc-configurator.php:406
-msgid "Default"
-msgstr ""
-
-#: cc-configurator.php:395
-msgid "Set a background color for the block."
-msgstr ""
-
-#: cc-configurator.php:404
-msgid "Set a color for the border of the block."
-msgstr ""
-
-#: cc-configurator.php:413
-msgid "Disable the internal formatting of the license block. If the internal formatting is disabled, then the color selections above have no effect any more. You can still format the license block via your own CSS. The <em>cc-block</em> and <em>cc-button</em> classes have been reserved for formatting the license block and the license button respectively."
-msgstr ""
-
-#: cc-configurator.php:422 cc-configurator.php:425
-msgid "Donations"
-msgstr ""
-
-#: cc-configurator.php:428
-msgid "By checking this, the <em>message from the author</em> above goes away. Thanks for <a href=\"http://www.g-loaded.eu/about/donate/\">donating</a>!"
-msgstr ""
-
-#: cc-configurator.php:441
-msgid "Save Changes"
-msgstr ""
-
-#: cc-configurator.php:450
-msgid "Advanced Info"
-msgstr ""
-
-#: cc-configurator.php:451
-msgid "Apart from the options above for the inclusion of licensing information in your blog, this plugin provides some <em>Template Tags</em>, which can be used in your theme templates. These are the following:"
-msgstr ""
-
-#: cc-configurator.php:458
-msgid "Text Hyperlink"
-msgstr ""
-
-#: cc-configurator.php:460
-msgid "Returns the text hyperlink of your current license for use in the PHP code."
-msgstr ""
-
-#: cc-configurator.php:462
-msgid "Displays the text hyperlink."
-msgstr ""
-
-#: cc-configurator.php:467
-msgid "Image Hyperlink"
-msgstr ""
-
-#: cc-configurator.php:469
-msgid "Returns the image hyperlink of the current license."
-msgstr ""
-
-#: cc-configurator.php:471
-msgid "Displays the image hyperlink of the current license."
-msgstr ""
-
-#: cc-configurator.php:476
-msgid "License URIs"
-msgstr ""
-
-#: cc-configurator.php:478
-msgid "Returns the license's URL."
-msgstr ""
-
-#: cc-configurator.php:480
-msgid "Returns the license's Deed URL. Usually this is the same URI as returned by the bccl_get_license_url() function."
-msgstr ""
-
-#: cc-configurator.php:485
-msgid "Full HTML Code"
-msgstr ""
-
-#: cc-configurator.php:487
-msgid "Returns the full HTML code of the license. This includes the text and the image hyperlinks."
-msgstr ""
-
-#: cc-configurator.php:489
-msgid "Displays the full HTML code of the license. This includes the text and the image hyperlinks."
-msgstr ""
-
-#: cc-configurator.php:494
-msgid "Complete License Block"
-msgstr ""
-
-#: cc-configurator.php:496
-msgid "Displays a complete license block. This template tag can be used to publish specific original work under the current license or in order to display the license block at custom locations on your website. This function supports the following arguments"
-msgstr ""
-
-#: cc-configurator.php:498 cc-configurator.php:499 cc-configurator.php:500
-msgid "alphanumeric"
-msgstr ""
-
-#: cc-configurator.php:498
-msgid "This argument is used to define the work to be licensed. Its use is optional, when the template tag is used in single-post view. If not defined, the user-defined settings for the default license block are used."
-msgstr ""
-
-#: cc-configurator.php:499
-msgid "This argument sets the name of the CSS class that will be used to format the license block. It is optional. If not defined, then the default class <em>cc-block</em> is used."
-msgstr ""
-
-#: cc-configurator.php:500
-msgid "This argument is optional. It can be used in order to control the appearance of the license icon."
-msgstr ""
-
-#: cc-configurator.php:506
-msgid "Licence Documents"
-msgstr ""
-
-#: cc-configurator.php:508
-msgid "Displays the license's summary document in an <em>iframe</em>."
-msgstr ""
-
-#: cc-configurator.php:510
-msgid "Displays the license's full legal code in an <em>iframe</em>."
-msgstr ""
-
-#: cc-configurator.php:543
+#: cc-configurator.php:94
 msgid "Creative Commons"
 msgstr ""
 
-#: cc-configurator.php:599
+#: cc-configurator.php:94 bccl-admin-panel.php:7 bccl-admin-panel.php:437
+msgid "License"
+msgstr ""
+
+#: cc-configurator.php:150 bccl-admin-panel.php:379
 msgid "Creative Commons License"
 msgstr ""
 
-#: cc-configurator.php:708
-msgid "The"
-msgstr ""
-
-#: cc-configurator.php:708
+#: cc-configurator.php:269
 msgid "by"
 msgstr ""
 
-#: cc-configurator.php:710
+#: cc-configurator.php:271
 msgid "This work"
 msgstr ""
 
-#: cc-configurator.php:713
+#: cc-configurator.php:274
 msgid "unless otherwise expressly stated"
 msgstr ""
 
-#: cc-configurator.php:713
+#: cc-configurator.php:274
 msgid "is licensed under a"
 msgstr ""
 
-#: cc-configurator.php:717
+#: cc-configurator.php:278
 msgid "Terms and conditions beyond the scope of this license may be available at"
 msgstr ""
 
-#: cc-configurator.php:743
+#: cc-configurator.php:304
 msgid "Blog Name"
 msgstr ""
 
-#: cc-configurator.php:744
+#: cc-configurator.php:305
 msgid "First + Last Name"
 msgstr ""
 
-#: cc-configurator.php:745
+#: cc-configurator.php:306
 msgid "Last + First Name"
 msgstr ""
 
-#: cc-configurator.php:746
+#: cc-configurator.php:307
 msgid "Nickname"
 msgstr ""
 
-#: cc-configurator.php:747
+#: cc-configurator.php:308
 msgid "Displayed Name"
+msgstr ""
+
+#: bccl-settings.php:201
+msgid "CC-Configurator options saved"
+msgstr ""
+
+#: bccl-settings.php:221
+msgid "Creative Commons license saved."
+msgstr ""
+
+#: bccl-settings.php:244
+msgid "CC-Configurator options were reset to defaults"
+msgstr ""
+
+#: bccl-settings.php:267
+msgid "CC-Configurator license has been removed."
+msgstr ""
+
+#: bccl-admin-panel.php:7 bccl-admin-panel.php:109 bccl-admin-panel.php:146
+msgid "License Settings"
+msgstr ""
+
+#: bccl-admin-panel.php:20
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: bccl-admin-panel.php:110
+msgid "Welcome to the administration panel of the Creative-Commons-Configurator plugin for WordPress."
+msgstr ""
+
+#: bccl-admin-panel.php:112
+msgid "Select License"
+msgstr ""
+
+#: bccl-admin-panel.php:113
+msgid "A license has not been set for your content. By pressing the following link you will be taken to the license selection wizard hosted by the Creative Commons Corporation. Once you have completed the license selection process, you will be redirected back to this page."
+msgstr ""
+
+#: bccl-admin-panel.php:123
+msgid "New License"
+msgstr ""
+
+#: bccl-admin-panel.php:151
+msgid "Current License"
+msgstr ""
+
+#: bccl-admin-panel.php:152
+msgid "A license has been set and will be used to license your work."
+msgstr ""
+
+#: bccl-admin-panel.php:153
+msgid "If you need to set a different license, press the <em>Reset License</em> button below."
+msgstr ""
+
+#: bccl-admin-panel.php:156
+msgid "Reset License"
+msgstr ""
+
+#: bccl-admin-panel.php:162
+msgid "Message from the author"
+msgstr ""
+
+#: bccl-admin-panel.php:166
+msgid "This message can de deactivated in the settings below."
+msgstr ""
+
+#: bccl-admin-panel.php:170
+msgid "Configuration"
+msgstr ""
+
+#: bccl-admin-panel.php:171
+msgid "Here you can choose where and how license information should be added to your blog."
+msgstr ""
+
+#: bccl-admin-panel.php:179 bccl-admin-panel.php:182
+msgid "Syndicated Content"
+msgstr ""
+
+#: bccl-admin-panel.php:185
+msgid "Include license information in the blog feeds. (<em>Recommended</em>)"
+msgstr ""
+
+#: bccl-admin-panel.php:193 bccl-admin-panel.php:196
+msgid "Page Head HTML"
+msgstr ""
+
+#: bccl-admin-panel.php:199
+msgid "Include license information in the page's HTML head. This will not be visible to human visitors, but search engine bots will be able to read it. Note that the insertion of license information in the HTML head is done in relation to the content types (posts, pages or attachment pages) on which the license text block is displayed (see the <em>text block</em> settings below). (<em>Recommended</em>)"
+msgstr ""
+
+#: bccl-admin-panel.php:207 bccl-admin-panel.php:210
+msgid "Text Block"
+msgstr ""
+
+#: bccl-admin-panel.php:212
+msgid "By enabling the following options, a small block of text, which contains links to the author, the work and the used license, is appended to the published content."
+msgstr ""
+
+#: bccl-admin-panel.php:216
+msgid "Posts: Add the text block with license information under the published posts. (<em>Recommended</em>)"
+msgstr ""
+
+#: bccl-admin-panel.php:222
+msgid "Pages: Add the text block with license information under the published pages."
+msgstr ""
+
+#: bccl-admin-panel.php:228
+msgid "Attachments: Add the text block with license information under the attached content in attachment pages."
+msgstr ""
+
+#: bccl-admin-panel.php:232
+msgid "By enabling the following option, the license image is also included in the license text block."
+msgstr ""
+
+#: bccl-admin-panel.php:236
+msgid "Include the license image in the text block."
+msgstr ""
+
+#: bccl-admin-panel.php:244 bccl-admin-panel.php:248
+msgid "Extra Text Block Customization"
+msgstr ""
+
+#: bccl-admin-panel.php:246 bccl-admin-panel.php:292
+msgid "The following settings have an effect only if the text block containing licensing information has been enabled above."
+msgstr ""
+
+#: bccl-admin-panel.php:252
+msgid "Include extended information about the published work and its creator. By enabling this option, hyperlinks to the published content and its creator/publisher are also included into the license statement inside the block. This, by being an attribution example itself, will generally help others to attribute the work to you."
+msgstr ""
+
+#: bccl-admin-panel.php:270
+msgid "If extended information about the published work has been enabled, then you can choose which name will indicate the creator of the work. By default, the blog name is used."
+msgstr ""
+
+#: bccl-admin-panel.php:278
+msgid "If you have added any extra permissions to your license, provide the URL to the webpage that contains them. It is highly recommended to use absolute URLs."
+msgstr ""
+
+#: bccl-admin-panel.php:280
+msgid "Example"
+msgstr ""
+
+#: bccl-admin-panel.php:290 bccl-admin-panel.php:294
+msgid "Colors of the text block"
+msgstr ""
+
+#: bccl-admin-panel.php:298
+msgid "Set a color for the text that appears within the block (does not affect hyperlinks)."
+msgstr ""
+
+#: bccl-admin-panel.php:300 bccl-admin-panel.php:309 bccl-admin-panel.php:318
+msgid "Default"
+msgstr ""
+
+#: bccl-admin-panel.php:307
+msgid "Set a background color for the block."
+msgstr ""
+
+#: bccl-admin-panel.php:316
+msgid "Set a color for the border of the block."
+msgstr ""
+
+#: bccl-admin-panel.php:325
+msgid "Disable the internal formatting of the license block. If the internal formatting is disabled, then the color selections above have no effect any more. You can still format the license block via your own CSS. The <em>cc-block</em> and <em>cc-button</em> classes have been reserved for formatting the license block and the license button respectively."
+msgstr ""
+
+#: bccl-admin-panel.php:334 bccl-admin-panel.php:337
+msgid "Donations"
+msgstr ""
+
+#: bccl-admin-panel.php:340
+#, php-format
+msgid "By checking this, the <em>message from the author</em> above goes away. Thanks for <a href=\"%s\">donating</a>!"
+msgstr ""
+
+#: bccl-admin-panel.php:353
+msgid "Save Changes"
+msgstr ""
+
+#: bccl-admin-panel.php:354
+msgid "Reset to defaults"
+msgstr ""
+
+#: bccl-admin-panel.php:380
+msgid "Licensing information"
+msgstr ""
+
+#: bccl-admin-panel.php:441
+msgid "Title:"
 msgstr ""
