@@ -306,19 +306,25 @@ function bccl_get_the_creator($who) {
     /*
     Return the creator/publisher of the licensed work according to the user-defined option (cc-creator)
     */
+    $author_name = '';
     if ($who == "blogname") {
-        return get_bloginfo("name");
+        $author_name = get_bloginfo("name");
     } elseif ($who == "firstlast") {
-        return get_the_author_firstname() . " " . get_the_author_lastname();
+        $author_name = get_the_author_firstname() . " " . get_the_author_lastname();
     } elseif ($who == "lastfirst") {
-        return get_the_author_lastname() . " " . get_the_author_firstname();
+        $author_name = get_the_author_lastname() . " " . get_the_author_firstname();
     } elseif ($who == "nickname") {
-        return get_the_author_nickname();
+        $author_name = get_the_author_nickname();
     } elseif ($who == "displayedname") {
-        return get_the_author();
+        $author_name = get_the_author();
     } else {
-        return "ERROR";
+        $author_name = "ERROR";
     }
+    // If we do not have an author name, revert to the display name.
+    if ( trim($author_name) == '' ) {
+        return get_the_author();
+    }
+    return $author_name;
 }
 
 
