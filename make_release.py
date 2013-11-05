@@ -49,9 +49,11 @@ POT_HEADER = """#  POT (Portable Object Template)
 
 import sys
 import os
+import glob
 import zipfile
 import shutil
 import subprocess
+import polib
 
 def get_name_release():
     def get_data(cur_line):
@@ -81,12 +83,19 @@ def get_name_release():
 name, release = get_name_release()
 
 
+print 'Generating POT file...'
 
 # Translation
 pot_domain = os.path.splitext(PLUGIN_METADATA_FILE)[0]
 
 # Generate POT file
-args = ['xgettext', '--default-domain=%s' % pot_domain, '--output=%s.pot' % pot_domain, '--language=PHP', '--from-code=UTF-8', '--keyword=__', '--keyword=_e', '--no-wrap', '--package-name=%s' % pot_domain, '--package-version=%s' % release, '--copyright-holder', 'George Notaras <gnot@g-loaded.eu>', '%s.php' % pot_domain]
+args = ['xgettext', '--default-domain=%s' % pot_domain, '--output=%s.pot' % pot_domain, '--language=PHP', '--from-code=UTF-8', '--keyword=__', '--keyword=_e', '--no-wrap', '--package-name=%s' % pot_domain, '--package-version=%s' % release, '--copyright-holder', 'George Notaras <gnot@g-loaded.eu>']
+# Add php files as arguments
+for rf in REL_FILES:
+    if rf.endswith('.php'):
+        args.append(rf)
+print (' ').join(args)
+
 p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 stdout, stderr = p.communicate()
 
@@ -102,6 +111,24 @@ for n, line in enumerate(pot_lines):
         continue
     f.write(line)
 f.close()
+
+print 'Complete'
+
+# Compile language .po files to .mo
+
+print 'Compiling PO files to MO...'
+for po_file in os.listdir('languages'):
+    if not po_file.endswith('.po'):
+        continue
+    po_path = os.path.join('languages', po_file)
+    print 'Converting', po_path
+    po = polib.pofile(po_path, encoding='utf-8')
+    mo_path = po_path[:-3] + '.mo'
+    po.save_as_mofile(mo_path)
+
+print 'Complete'
+print
+
 
 # Because of the stupidity of the WordPress plugin registration system
 # the plugin directory ends with ``-1``
