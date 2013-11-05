@@ -319,15 +319,15 @@ function bccl_get_the_creator($who) {
     if ($who == "blogname") {
         $author_name = get_bloginfo("name");
     } elseif ($who == "firstlast") {
-        $author_name = get_the_author_firstname() . " " . get_the_author_lastname();
+        $author_name = get_the_author_meta('first_name') . " " . get_the_author_meta('last_name');
     } elseif ($who == "lastfirst") {
-        $author_name = get_the_author_lastname() . " " . get_the_author_firstname();
+        $author_name = get_the_author_meta('last_name') . " " . get_the_author_meta('first_name');
     } elseif ($who == "nickname") {
-        $author_name = get_the_author_nickname();
+        $author_name = get_the_author_meta('nickname');
     } elseif ($who == "displayedname") {
-        $author_name = get_the_author();
+        $author_name = get_the_author_meta('display_name');
     } else {
-        $author_name = "ERROR";
+        $author_name = get_the_author_meta('display_name');
     }
     // If we do not have an author name, revert to the display name.
     if ( trim($author_name) == '' ) {
