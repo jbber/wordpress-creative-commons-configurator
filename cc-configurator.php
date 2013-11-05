@@ -345,29 +345,41 @@ function bccl_add_to_header() {
      * if it is single-post view
     */
     $cc_settings = get_option("cc_settings");
-    if ( !is_singular() ) {
-        return "";
-    } elseif ( is_attachment() && ($cc_settings["cc_body_attachments"] != "1") ) {
-        return "";
-    } elseif ( is_single() && ($cc_settings["cc_body"] != "1") ) {
-        return "";
-    } elseif ( is_page() && ($cc_settings["cc_body_pages"] != "1") ) {
-        return "";
-    }
-    
-    if ( !empty($cc_settings["license_url"]) && $cc_settings["cc_head"] == "1" ) {
-        echo "\n<!-- Creative Commons License added by Creative-Commons-Configurator plugin for WordPress\nGet the plugin at: http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/ -->\n";
-        // Adds a link element with "license" relation in the web page HEAD area.
-        echo "<link rel=\"license\" type=\"text/html\" href=\"" . bccl_get_license_url() . "\" />\n\n";
-    }
-    if ( $cc_settings["cc_no_style"] != "1" ) {
-        // Adds style for the license block
-        $color = $cc_settings["cc_color"];
-        $bgcolor = $cc_settings["cc_bgcolor"];
-        $brdrcolor = $cc_settings["cc_brdr_color"];
-        $bccl_default_block_style = "width: 90%; margin: 8px auto; padding: 4px; text-align: center; border: 1px solid $brdrcolor; color: $color; background-color: $bgcolor;";
-        $style = "<style type=\"text/css\"><!--\np.cc-block { $bccl_default_block_style }\n--></style>\n\n";
-        echo $style;
+
+    if ( is_singular() && ! is_front_page() ) { // The license link is not appended to static front page content.
+
+        // If the user has enabled the inclusion of the link in the head
+        if ( ! empty($cc_settings["license_url"]) && $cc_settings["cc_head"] == "1" ) {
+            echo PHP_EOL . "<!-- Creative Commons License added by Creative-Commons-Configurator plugin for WordPress -->" . PHP_EOL;
+            // Adds a link element with "license" relation in the web page HEAD area.
+            echo "<link rel=\"license\" type=\"text/html\" href=\"" . bccl_get_license_url() . "\" />" . PHP_EOL . PHP_EOL;
+        }
+
+        // If the license block has not been enabled for this type, return and do not print our style
+        if ( is_attachment() ) {
+            if ( $cc_settings["cc_body_attachments"] != "1" ) {
+                return;
+            }
+        } elseif ( is_page() ) {
+            if ( $cc_settings["cc_body_pages"] != "1" ) {
+                return;
+            }
+        } elseif ( is_single() ) {
+            if ( $cc_settings["cc_body"] != "1" ) {
+                return;
+            }
+        }
+
+        // If the user has not deactivated our internal style, print it too
+        if ( $cc_settings["cc_no_style"] != "1" ) {
+            // Adds style for the license block
+            $color = $cc_settings["cc_color"];
+            $bgcolor = $cc_settings["cc_bgcolor"];
+            $brdrcolor = $cc_settings["cc_brdr_color"];
+            $bccl_default_block_style = "clear: both; width: 90%; margin: 8px auto; padding: 4px; text-align: center; border: 1px solid $brdrcolor; color: $color; background-color: $bgcolor;";
+            $style = "<style type=\"text/css\"><!--" . PHP_EOL . "p.cc-block { $bccl_default_block_style }" . PHP_EOL . "--></style>" . PHP_EOL . PHP_EOL;
+            echo $style;
+        }
     }
 }
 
