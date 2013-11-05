@@ -404,19 +404,29 @@ function bccl_append_to_post_body($PostBody) {
     the saved settings two timesor pass them between functions.
     */
     $cc_settings = get_option("cc_settings");
-    if ( !is_singular() ) { // Possibly not necessary
-        return $PostBody;
-    } elseif ( is_attachment() && ($cc_settings["cc_body_attachments"] != "1") ) {
-        return $PostBody;
-    } elseif ( is_single() && ($cc_settings["cc_body"] != "1") ) {
-        return $PostBody;
-    } elseif ( is_page() && ($cc_settings["cc_body_pages"] != "1") ) {
-        return $PostBody;
-    }
-    // Append the license block to the content
-    $cc_block = bccl_get_license_block("", "", "default", "default");
-    if ( $cc_block ) {
-        $PostBody .= bccl_add_placeholders($cc_block);
+
+    if ( is_singular() && ! is_front_page() ) { // The license block is not appended to static front page content.
+
+        if ( is_attachment() ) {
+            if ( $cc_settings["cc_body_attachments"] != "1" ) {
+                return $PostBody;
+            }
+        } elseif ( is_page() ) {
+            if ( $cc_settings["cc_body_pages"] != "1" ) {
+                return $PostBody;
+            }
+        } elseif ( is_single() ) {
+            if ( $cc_settings["cc_body"] != "1" ) {
+                return $PostBody;
+            }
+        }
+
+        // Append the license block to the content
+        $cc_block = bccl_get_license_block("", "", "default", "default");
+        if ( $cc_block ) {
+            $PostBody .= bccl_add_placeholders($cc_block);
+        }
+
     }
     return $PostBody;
 }
