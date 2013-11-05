@@ -74,9 +74,9 @@ add_filter( 'plugin_action_links', 'bccl_plugin_actions', 10, 2 );
 function bccl_add_placeholders($data, $what = "html") {
     if (!(trim($data))) { return ""; }
     if ($what = "html") {
-        return sprintf("\n<!-- Creative Commons License -->\n%s\n<!-- /Creative Commons License -->\n", trim($data));
+        return sprintf( PHP_EOL . "<!-- Creative Commons License -->" . PHP_EOL . "%s" . PHP_EOL . "<!-- /Creative Commons License -->" . PHP_EOL , trim($data) );
     } else {
-        return sprintf("\n<!--\n%s\n-->\n", trim($data));
+        return sprintf( PHP_EOL . "<!--" . PHP_EOL . "%s" . PHP_EOL . "-->" . PHP_EOL, trim($data) );
     }
 }
 
