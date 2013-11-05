@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[cc-configurator.main]
+file_filter = languages/cc-configurator-<lang>.po
+source_file = cc-configurator.pot
+source_lang = en
+type = PO
