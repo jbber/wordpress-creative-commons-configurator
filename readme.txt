@@ -4,7 +4,7 @@ Donate link: http://bit.ly/1aoPaow
 Tags: cc, license, metadata, legal, creative, commons, seo, attribution, copyright, cc license, creative commons, rights, copyright
 Requires at least: 2.7
 Tested up to: 3.7.1
-Stable tag: 1.4.2a
+Stable tag: 1.5.0
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -144,6 +144,11 @@ You can find the bug tracker at the [Creative-Commons-Configurator Development w
 
 In the following list there are links to the changelog of each release:
 
+- [1.5.0](http://www.codetrax.org/versions/181)
+ - Refactoring.
+ - Re-designed mechanism that manages the settings.
+ - Full support for SSL admin panel.
+ - A Creative Commons widget is now available.
 - [1.4.1](http://www.codetrax.org/versions/134)
 - [1.4.0](http://www.codetrax.org/versions/128)
 - [1.3.2](http://www.codetrax.org/versions/131)
