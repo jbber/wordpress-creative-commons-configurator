@@ -337,7 +337,7 @@ function bccl_set_license_options($cc_settings) {
                 <legend class="screen-reader-text"><span>'.__('Donations', 'cc-configurator').'</span></legend>
                 <input id="cc_i_have_donated" type="checkbox" value="1" name="cc_i_have_donated" '. (($cc_settings["cc_i_have_donated"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="cc_i_have_donated">
-                '.__('By checking this, the <em>message from the author</em> above goes away. Thanks for <a href="http://www.g-loaded.eu/about/donate/">donating</a>!', 'cc-configurator').'
+                '. sprintf( __('By checking this, the <em>message from the author</em> above goes away. Thanks for <a href="%s">donating</a>!', 'cc-configurator'), 'http://bit.ly/1aoPaow' ) .'
                 </label>
                 <br />
 
