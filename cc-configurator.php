@@ -253,7 +253,7 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
     
     // License block pre/after text
     $pre_text = '';
-    $pre_text = 'Copyright &copy; ' . get_the_date('Y') . ' - Some Rights Reserved' . '<br />';
+    // $pre_text = 'Copyright &copy; ' . get_the_date('Y') . ' - Some Rights Reserved' . '<br />';
     $pre_text = apply_filters( 'bccl_license_block_pre', $pre_text );
     $after_text = '';
     $after_text = apply_filters( 'bccl_license_block_after', $after_text );
