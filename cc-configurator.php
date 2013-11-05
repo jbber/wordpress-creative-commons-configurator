@@ -250,6 +250,10 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
         $button_code = "ERROR";
     }
     
+    // Copyright line
+    $copyright = '<br />' . 'Copyright &copy; ' . get_the_date('Y') . ' - Some Rights Reserved';
+    $copyright = apply_filters( 'bccl_copyright_clause', $copyright );
+
     // Work analysis
     if ( empty($work) ) {
         // Proceed only if the user has not defined the work.
@@ -272,7 +276,7 @@ function bccl_get_license_block($work = "", $css_class = "", $show_button = "def
     }
     
     // $cc_block = sprintf("<div class=\"%s\">%s%s%s</div>", $css_class, $button_code, $work, $additional_perms);
-    $cc_block = sprintf("<p class=\"%s\">%s%s%s</p>", $css_class, $button_code, $work, $additional_perms);
+    $cc_block = sprintf("<p class=\"%s\">%s%s%s%s</p>", $css_class, $button_code, $work, $additional_perms, $copyright);
     return $cc_block;
 }
 
