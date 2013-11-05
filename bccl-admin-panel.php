@@ -150,7 +150,7 @@ function bccl_set_license_options($cc_settings) {
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Current License', 'cc-configurator').'</span></legend>
                 <p>'.__('A license has been set and will be used to license your work.', 'cc-configurator').'</p>
-                <p>'.__('If you need to set a different license, press the <em>Reset License</em> button below. By reseting the license, the saved plugin options are removed from the WordPress database.', 'cc-configurator').'</p>
+                <p>'.__('If you need to set a different license, press the <em>Reset License</em> button below.', 'cc-configurator').'</p>
             </fieldset>
             <p class="submit">
                 <input type="submit" class="button-primary" name="license_reset" value="'.__('Reset License', 'cc-configurator').'" />
@@ -160,9 +160,9 @@ function bccl_set_license_options($cc_settings) {
 
     <div class="wrap" style="background: #EEF6E6; padding: 1em 2em; border: 1px solid #E4E4E4;' . (($cc_settings["cc_i_have_donated"]=="1") ? ' display: none;' : '') . '">
         <h2>'.__('Message from the author', 'cc-configurator').'</h2>
-        <p style="font-size: 1.2em; padding-left: 2em;"><em>CC-Configurator</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>free software</strong>.</p>
-        <p style="font-size: 1.2em; padding-left: 2em;">However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful, you can show your appreciation of the effort by buying me an <a href="http://www.g-loaded.eu/about/donate/">extra cup of coffee</a>.</p>
-        <p style="font-size: 1.2em; padding-left: 2em;">Thank you in advance</p>
+        <p style="font-size: 1.2em; padding-left: 2em;"><em>CC-Configurator</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>Free software</strong>.</p>
+        <p style="font-size: 1.2em; padding-left: 2em;">However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and, if it has made your life easier, you can show your appreciation by buying me an <a href="http://bit.ly/1aoPaow">extra cup of coffee</a>.</p>
+        <p style="font-size: 1.2em; padding-left: 2em;">Thank you in advance,<br />George Notaras</p>
         <div style="text-align: right;"><small>'.__('This message can de deactivated in the settings below.', 'cc-configurator').'</small></div>
     </div>
 
