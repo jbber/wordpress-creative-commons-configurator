@@ -526,3 +526,198 @@ function register_bccl_widget() {
 add_action( 'widgets_init', 'register_bccl_widget' );
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Meta box in post/page editing panel.
+ */
+
+/* Define the custom box */
+add_action( 'add_meta_boxes', 'bccl_add_license_box' );
+
+/**
+ * Adds a box to the main column of the editing panel of the supported post types.
+ * See the bccl_get_post_types_for_metabox() docstring for more info on the supported types.
+ */
+function bccl_add_license_box() {
+    $supported_types = bccl_get_post_types_for_metabox();
+
+    // Add an CC-Configurator meta box to all supported types
+    foreach ($supported_types as $supported_type) {
+        add_meta_box( 
+            'bccl-license-box',
+            __( 'License', 'cc-configurator' ),
+            'bccl_inner_license_box',
+            $supported_type,
+            'advanced',
+            'high'
+        );
+    }
+
+}
+
+
+/**
+ * Load CSS and JS for license box.
+ * The editing pages are post.php and post-new.php
+ */
+function bccl_license_box_css_js () {
+    // $supported_types = bccl_get_supported_post_types();
+    // See: #900 for details
+
+    // Using included Jquery UI
+//    wp_enqueue_script('jquery');
+//    wp_enqueue_script('jquery-ui-core');
+//    wp_enqueue_script('jquery-ui-widget');
+//    wp_enqueue_script('jquery-ui-tabs');
+
+    //wp_register_style( 'bccl-jquery-ui-core', plugins_url('css/jquery.ui.core.css', __FILE__) );
+    //wp_enqueue_style( 'bccl-jquery-ui-core' );
+    //wp_register_style( 'bccl-jquery-ui-tabs', plugins_url('css/jquery.ui.tabs.css', __FILE__) );
+    //wp_enqueue_style( 'bccl-jquery-ui-tabs' );
+//    wp_register_style( 'bccl-metabox-tabs', plugins_url('css/bccl-metabox-tabs.css', __FILE__) );
+//    wp_enqueue_style( 'bccl-metabox-tabs' );
+
+}
+// add_action('admin_print_styles-post.php', 'bccl_license_box_css_js');
+// add_action('admin_print_styles-post-new.php', 'bccl_license_box_css_js');
+
+
+/* For future reference - Add data to the HEAD area of post editing panel */
+function bccl_metabox_script_caller() {
+    print('
+    <script>
+        jQuery(document).ready(function($) {
+        $("#bccl-metabox-tabs .hidden").removeClass(\'hidden\');
+        $("#bccl-metabox-tabs").tabs();
+        });
+    </script>
+    ');
+}
+// add_action('admin_head-post.php', 'bccl_metabox_script_caller');
+// add_action('admin_head-post-new.php', 'bccl_metabox_script_caller');
+// OR
+// add_action('admin_footer-post.php', 'bccl_metabox_script_caller');
+// add_action('admin_footer-post-new.php', 'bccl_metabox_script_caller');
+
+
+/* Prints the box content */
+function bccl_inner_license_box( $post ) {
+
+    // Use a nonce field for verification
+    wp_nonce_field( plugin_basename( __FILE__ ), 'bccl_noncename' );
+
+    // Get the post type. Will be used to customize the displayed notes.
+    $post_type = get_post_type( $post->ID );
+
+    // Display the meta box HTML code.
+
+    //
+    //  Custom field: _bccl_license
+    //
+    //  Contains: a slug
+    //
+    //  Supported Slugs:
+    //      'default': use default license
+    //      'cc0': Creative Commons CC0, No Rights Reserved
+    //      'arr': All Rights Reserved
+    //      'manual': do not add the license information automatically
+    //
+    
+    // Retrieve the field data from the database.
+    $bccl_license_field_value = get_post_meta( $post->ID, '_bccl_license', true );
+    if ( empty( $bccl_license_field_value ) ) {
+        // Set to default
+        $bccl_license_field_value = 'default';
+    }
+
+    //var_dump( $bccl_license_field_value );
+
+    print('
+        <p>
+            <input type="radio" id="bccl_default" name="bccl_license_slug" value="default" '. (($bccl_license_field_value=='default') ? 'checked' : '') .'/> 
+            <label for="bccl_default">'.__('Default Creative Commons license &ndash; Use the license that has been set in the general license settings.', 'cc-configurator').'</label>
+            <br />
+
+            <input type="radio" id="bccl_cc0" name="bccl_license_slug" value="cc0"'. (($bccl_license_field_value=='cc0') ? 'checked' : '') .'/> ' . __('', 'cc-configurator') . '
+            <label for="bccl_cc0">'.__('No Rights Reserved &ndash; Release this work to the <a href="http://wiki.creativecommons.org/Public_domain">Public Domain</a> using the <a href="http://creativecommons.org/about/cc0">Creative Commons CC0</a>, a form of copyright and related rights waiver.', 'cc-configurator').'</label>
+            <br />
+
+            <input type="radio" id="bccl_arr" name="bccl_license_slug" value="arr"'. (($bccl_license_field_value=='arr') ? 'checked' : '') .'/>
+            <label for="bccl_arr">'.__('All Rights Reserved &ndash; Reserve all rights provided by copyright law.', 'cc-configurator').'</label>
+            <br />
+
+            <input type="radio" id="bccl_manual" name="bccl_license_slug" value="manual" '. (($bccl_license_field_value=='manual') ? 'checked' : '') .'/>
+            <label for="bccl_manual">'.__('No automatic license &ndash; Let me add licensing information manually.', 'cc-configurator').'</label>
+
+        </p>
+    ');
+
+}
+
+
+
+
+/* Manage the entered data */
+add_action( 'save_post', 'bccl_save_postdata', 10, 2 );
+
+/* When the post is saved, saves our custom description and keywords */
+function bccl_save_postdata( $post_id, $post ) {
+
+    // Verify if this is an auto save routine. 
+    // If it is our form has not been submitted, so we dont want to do anything
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+        return;
+
+    /* Verify the nonce before proceeding. */
+    // Verify this came from the our screen and with proper authorization,
+    // because save_post can be triggered at other times
+    if ( !isset($_POST['bccl_noncename']) || !wp_verify_nonce( $_POST['bccl_noncename'], plugin_basename( __FILE__ ) ) )
+        return;
+
+    /* Get the post type object. */
+	$post_type_obj = get_post_type_object( $post->post_type );
+
+    /* Check if the current user has permission to edit the post. */
+	if ( !current_user_can( $post_type_obj->cap->edit_post, $post_id ) )
+		return;
+
+    // OK, we're authenticated: we need to find and save the data
+
+    //
+    // Get value for custom field, Sanitize user input.
+    $bccl_license_field_value = sanitize_text_field( stripslashes( $_POST['bccl_license_slug'] ) );   // slug (unique for each license)
+
+    //var_dump( $bccl_license_field_value );
+
+    // We only save the field, if the slug is other than 'default'
+    // If the slug is 'default', then we just delete the custom field associated with this post
+    if ( $bccl_license_field_value == 'default' ) {
+        delete_post_meta( $post_id, '_bccl_license' );
+    } else {
+        update_post_meta( $post_id, '_bccl_license', $bccl_license_field_value);
+    }
+    
+}
+
+
