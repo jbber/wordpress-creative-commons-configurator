@@ -2,7 +2,7 @@
 /*
 Plugin Name: Creative Commons Configurator
 Plugin URI: http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/
-Description: Adds a Creative Commons license to your blog pages and feeds. Also, provides some <em>Template Tags</em> for use in your theme templates.
+Description: Helps you publish your content under the terms of a Creative Commons license.
 Version: 1.5.0
 Author: George Notaras
 Author URI: http://www.g-loaded.eu/
