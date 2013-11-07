@@ -1,16 +1,68 @@
 <?php
 
 
-
-
-function bccl_add_pages() {
-    add_options_page(__('License Settings', 'cc-configurator'), __('License', 'cc-configurator'), 'manage_options', 'cc-configurator-options', 'bccl_options_page');
-}
-add_action('admin_menu', 'bccl_add_pages');
-
-
 function bccl_show_info_msg($msg) {
     echo '<div id="message" class="updated fade"><p>' . $msg . '</p></div>';
+}
+
+
+/*
+* Construct the Creative Commons Configurator administration panel under Settings->License
+*/
+add_action( 'admin_init', 'bccl_admin_init' );
+add_action( 'admin_menu', 'bccl_admin_menu');
+
+
+function bccl_admin_init() {
+
+    // Here we just add some dummy variables that contain the plugin name and
+    // the description exactly as they appear in the plugin metadata, so that
+    // they can be translated.
+    $bccl_plugin_name = __('Creative Commons Configurator', 'cc-configurator');
+    $bccl_plugin_description = __('Helps you publish your content under the terms of a Creative Commons license.', 'cc-configurator');
+
+    // Perform automatic settings upgrade based on settings version.
+    // Also creates initial default settings automatically.
+    bccl_plugin_upgrade();
+
+    // Register scripts and styles
+
+    /* Register our script. */
+    // wp_register_script( 'my-plugin-script', plugins_url( '/script.js', __FILE__ ) );
+    /* Register our stylesheet. */
+    // wp_register_style( 'myPluginStylesheet', plugins_url('stylesheet.css', __FILE__) );
+
+}
+
+
+function bccl_admin_menu() {
+    /* Register our plugin page */
+    $page_hook_suffix = add_options_page(
+        __('License Settings', 'cc-configurator'),
+        __('License', 'cc-configurator'),
+        'manage_options',
+        'cc-configurator-options',
+        'bccl_options_page'
+    );
+
+    /*
+     * Use the retrieved $page_hook_suffix to hook the function that links our script.
+     * This hook invokes the function only on our plugin administration screen,
+     * see: http://codex.wordpress.org/Administration_Menus#Page_Hook_Suffix
+     */
+    add_action( 'admin_print_scripts-' . $page_hook_suffix, 'bccl_admin_scripts');
+    /* Again use $page_hook_suffix to hook the function that links our stylesheet. */
+    add_action( 'admin_print_styles-' . $page_hook_suffix, 'bccl_admin_styles' );
+}
+
+
+function bccl_admin_scripts() {
+    // Link our already registered script to a page
+    //wp_enqueue_script( 'my-plugin-script' );
+}
+function bccl_admin_styles() {
+    // It will be called only on your plugin admin page, enqueue our stylesheet here
+    //wp_enqueue_style( 'myPluginStylesheet' );
 }
 
 
@@ -110,7 +162,7 @@ function bccl_select_license() {
         <p>'.__('Welcome to the administration panel of the Creative-Commons-Configurator plugin for WordPress.', 'cc-configurator').'</p>
 
         <h2>'.__('Select License', 'cc-configurator').'</h2>
-        <p>'.__('A license has not been set for your content. By pressing the following link you will be taken to the license selection wizard hosted by the Creative Commons Corporation. Once you have completed the license selection process, you will be redirected back to this page.', 'cc-configurator').'</p>
+        <p>'.__('A license has not been set for your content. By pressing the following link you will be taken to the license selection wizard, hosted by the Creative Commons organization. Once you have completed the license selection process, you will be redirected back to this page.', 'cc-configurator').'</p>
 
         <form name="formnewlicense" id="bccl-new-license-form" method="get" action="' . $cc_partner_interface_url . '">
             <input type="hidden" name="partner" value="' . $partner . '" />
