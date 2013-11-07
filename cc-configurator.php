@@ -3,7 +3,7 @@
 Plugin Name: Creative Commons Configurator
 Plugin URI: http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/
 Description: Helps you publish your content under the terms of a Creative Commons license.
-Version: 1.5.0
+Version: 1.5.1a
 Author: George Notaras
 Author URI: http://www.g-loaded.eu/
 License: Apache License v2
@@ -455,7 +455,7 @@ function bccl_add_to_header() {
         }
 
         // Closing comment
-        echo PHP_EOL . "<!-- END Creative Commons License added by Creative-Commons-Configurator plugin for WordPress -->" . PHP_EOL;
+        echo PHP_EOL . "<!-- END Creative Commons License added by Creative-Commons-Configurator plugin for WordPress -->" . PHP_EOL . PHP_EOL;
     }
 }
 
