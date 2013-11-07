@@ -109,7 +109,8 @@ function bccl_plugin_upgrade() {
     update_option('cc_settings', $stored_options);
 
 }
-add_action('plugins_loaded', 'bccl_plugin_upgrade');
+//add_action('plugins_loaded', 'bccl_plugin_upgrade');
+// See function bccl_admin_init() in bccl-admin-panel.php
 
 
 
