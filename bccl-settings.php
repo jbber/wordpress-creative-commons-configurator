@@ -73,7 +73,7 @@ function bccl_plugin_upgrade() {
             $stored_options['settings_version'] = $value;
         }
         // Add missing options
-        elseif ( !array_key_exists($opt, $stored_options) ) {
+        elseif ( ! array_key_exists($opt, $stored_options) ) {
             $stored_options[$opt] = $value;
         }
         // Existing stored options are untouched here.
