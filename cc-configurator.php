@@ -416,6 +416,53 @@ function bccl_add_cc_element_feed() {
 }
 
 
+/**
+ * Adds the CC URL to the feed items.
+ */
+function bccl_add_cc_element_feed_item() {
+
+    global $post;
+
+    $cc_settings = get_option("cc_settings");
+    
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
+
+    // If the addition of data in the feeds has been enabled
+    if ( $cc_settings["cc_feed"] == "1" ) {
+
+        // Get content specific license from the custom field
+        $bccl_license = get_post_meta( $post->ID, '_bccl_license', true );
+        if ( empty( $bccl_license ) ) {
+            // Set to default
+            $bccl_license = 'default';
+        }
+
+        // DEFAULT LICENSE
+        // If no custom license has been set for this content
+        if ( $bccl_license == 'default' ) {
+            echo "\t<creativeCommons:license>" . bccl_get_license_url() . "</creativeCommons:license>" . PHP_EOL;
+        }
+
+        // CC0
+        elseif ( $bccl_license == 'cc0' ) {
+            $license = bccl_get_license( 'cc0' );
+            echo "\t\t<creativeCommons:license>" . $license['url'] . "</creativeCommons:license>" . PHP_EOL;
+        }
+
+    }
+}
+
+
+/*
+ * Adds the license block under the published content.
+ *
+ * The check if the user has chosen to display a block under the published
+ * content is performed in bccl_get_license_block(), in order not to retrieve
+ * the saved settings two timesor pass them between functions.
+ */
 function bccl_append_to_post_body($PostBody) {
 
     // Get global settings
