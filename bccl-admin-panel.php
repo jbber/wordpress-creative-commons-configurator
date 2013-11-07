@@ -464,13 +464,17 @@ class Bccl_Widget extends WP_Widget {
             }
         }
 
+        $widget_output = bccl_get_widget_output();
+        if ( empty( $widget_output ) ) {
+            return;
+        }
+
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
 		if ( ! empty( $title ) )
 			echo $args['before_title'] . $title . $args['after_title'];
-		//echo __( 'Hello, World!', 'cc-configurator' );
-        bccl_full_html_license();
+        echo $widget_output;
 		echo $args['after_widget'];
 	}
 
