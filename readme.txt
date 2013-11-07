@@ -14,18 +14,28 @@ Adds Creative Commons license information to your posts, pages, attachment pages
 
 == Description ==
 
-[Creative-Commons-Configurator](http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/ "Official Creative-Commons-Configurator Homepage") is the only tool a user will ever need in order to set a [Creative Commons License](http://creativecommons.org/) on a WordPress blog and control the inclusion or display of the license information and relevant metadata into the blog pages or the syndication feeds. All configuration is done via a page in the administration panel. Template tags are also available for those who need extra customization.
+[Creative-Commons-Configurator](http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/ "Official Creative-Commons-Configurator Homepage") is the only tool a user will ever need in order to set a [Creative Commons License](http://creativecommons.org/) on a WordPress blog and control the inclusion or display of the license information and relevant metadata into the blog pages or the syndication feeds. All configuration is done via a page in the administration panel.
+
+By default, the license you have chosen in the License settings is automatically appended to all content, unless otherwise specified in the settings. Since the 1.5.1 release, it is possible to customize the license metadata on a per post basis from the *License* box in the post editing panel:
+
+- You can stop license metadata from appearing on individual posts.
+- Although not recommended, you can use the *All Rights Reserved* clause on specific posts.
+- It is possible to waive all rights from a post and publish it in the Public Domain by choosing the <a href="http://creativecommons.org/about/cc0">CC0</a> rights waiver.
+
+Template tags and filters are also available for those who need extra customization.
 
 Features at a glance:
 
 - Configuration page in the WordPress administration panel. No manual editing of files is needed for basic usage.
+- Per post settings (use default license, no license, fll back to *All Rights Reserved*, *No Rights Reserved* via *CC0*).
+- A widget is available to add to your sidebars.
 - License selection by using the web-based license selection API from CreativeCommons.org.
-- The license information can be reset at any time.
+- The license information can be reset at any time without affecting current license customization settings.
 - Adds license information to:
  - The HTML head area (Not visible to human visitors).
  - The Atom, RSS 2.0 and RDF (RSS 1.0) feeds through the Creative Commons RSS module, which validates properly. This option is compatible only with WordPress 2 or newer due to technical reasons.
  - Displays a block with license information under the published content. Basic customization (license information and formatting) is available through the configuration panel.
-- A widget is available to add to your sidebars.
+
 - Some template tags are provided for use in your theme templates.
 - The plugin is ready for localization.
 
@@ -64,6 +74,8 @@ Also, make sure you read the [FAQ](http://wordpress.org/plugins/creative-commons
 
 This plugin provides some *Template Tags*, which can be used in your theme templates. These are the following:
 
+**NOTE**: Template tags will be revised in upcoming versions.
+
 Text Hyperlink
 
 - `bccl_get_license_text_hyperlink()` - Returns the text hyperlink of your current license for use in the PHP code.
@@ -96,6 +108,30 @@ Licence Documents
 - `bccl_license_summary($width, $height, $css_class)` - Displays the license's summary document in an <em>iframe</em>.
 - `bccl_license_legalcode($width, $height, $css_class)` - Displays the license's full legal code in an <em>iframe</em>.
 
+
+= Advanced Customization =
+
+Creative-Commons-Configurator allows filtering of some of the generated metadata and also of some core functionality through filters. This way advanced customization of the plugin is possible.
+
+The available filters are:
+
+1. `bccl_cc_license_text` - applied to the text that is generated for the Creative Commons License. The hooked function should accept and return 1 argument: a string.
+1. `bccl_cc0_license_text` - applied to the text that is generated for the CC0 rights waiver. The hooked function should accept and return 1 argument: a string.
+1. `bccl_arr_license_text` - applied to the text that is generated for All Rights Reserved clause. The hooked function should accept and return 1 argument: a string.
+1. `bccl_widget_html` - applied to the HTML code that is generated for the widget. The hooked function should accept and return 1 argument: a string.
+
+**Example 1**: you want to append a copyright notice to the CC license text.
+
+This can easily be done by hooking a custom function to the `bccl_cc_license_text` filter:
+
+`
+function append_copyright_notice_to_cc_text( $license_text ) {
+    $extra_text = '<br />Copyright &copy; ' . get_the_date('Y') . ' - Some Rights Reserved';
+    return $license_text . $extra_text;
+}
+add_filter( 'bccl_cc_license_text', 'append_copyright_notice_to_cc_block', 10, 1 );
+`
+This code can be placed inside your theme's `functions.php` file.
 
 
 == Installation ==
