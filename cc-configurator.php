@@ -417,14 +417,14 @@ function bccl_add_cc_element_feed() {
 
 
 function bccl_append_to_post_body($PostBody) {
-    /*
-    Adds the license block under the published content.
-    
-    The check if the user has chosen to display a block under the published
-    content is performed in bccl_get_license_block(), in order not to retrieve
-    the saved settings two timesor pass them between functions.
-    */
+
+    // Get global settings
     $cc_settings = get_option("cc_settings");
+
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return $PostBody;
+    }
 
     if ( is_singular() && ! is_front_page() ) { // The license block is not appended to static front page content.
 
@@ -444,7 +444,7 @@ function bccl_append_to_post_body($PostBody) {
 
         // Append the license block to the content
         $cc_block = bccl_get_license_block("", "", "default", "default");
-        if ( $cc_block ) {
+        if ( ! empty($cc_block) ) {
             $PostBody .= bccl_add_placeholders($cc_block);
         }
 
@@ -452,22 +452,26 @@ function bccl_append_to_post_body($PostBody) {
     return $PostBody;
 }
 
+
+
 // ACTION
 
 add_action('wp_head', 'bccl_add_to_header', 10);
 
 add_filter('the_content', 'bccl_append_to_post_body', 250);
 
+// Feeds
+
 add_action('rdf_ns', 'bccl_add_cc_ns_feed');
 add_action('rdf_header', 'bccl_add_cc_element_feed');
-add_action('rdf_item', 'bccl_add_cc_element_feed');
+add_action('rdf_item', 'bccl_add_cc_element_feed_item');
 
 add_action('rss2_ns', 'bccl_add_cc_ns_feed');
 add_action('rss2_head', 'bccl_add_cc_element_feed');
-add_action('rss2_item', 'bccl_add_cc_element_feed');
+add_action('rss2_item', 'bccl_add_cc_element_feed_item');
 
 add_action('atom_ns', 'bccl_add_cc_ns_feed');
 add_action('atom_head', 'bccl_add_cc_element_feed');
-add_action('atom_entry', 'bccl_add_cc_element_feed');
+add_action('atom_entry', 'bccl_add_cc_element_feed_item');
 
 ?>
