@@ -405,13 +405,16 @@ function bccl_add_cc_ns_feed() {
 }
 
 function bccl_add_cc_element_feed() {
-    /*
-    Adds the CC URL to the feeds.
-    */
+
     $cc_settings = get_option("cc_settings");
-    if (!$cc_settings) { return ""; }
-    if ( $cc_settings["license_url"] && $cc_settings["cc_feed"] == "1" ) {
-        echo "<creativeCommons:license>" . bccl_get_license_url() . "</creativeCommons:license>" . PHP_EOL;
+
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
+
+    if ( $cc_settings["cc_feed"] == "1" ) {
+        echo "\t<creativeCommons:license>" . bccl_get_license_url() . "</creativeCommons:license>" . PHP_EOL;
     }
 }
 
