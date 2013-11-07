@@ -44,6 +44,8 @@ define('BCCL_DIR', dirname(__FILE__));
 require_once( join( DIRECTORY_SEPARATOR, array( BCCL_DIR, 'bccl-settings.php' ) ) );
 require_once( join( DIRECTORY_SEPARATOR, array( BCCL_DIR, 'bccl-admin-panel.php' ) ) );
 require_once( join( DIRECTORY_SEPARATOR, array( BCCL_DIR, 'bccl-template-tags.php' ) ) );
+require_once( join( DIRECTORY_SEPARATOR, array( BCCL_DIR, 'bccl-utils.php' ) ) );
+require_once( join( DIRECTORY_SEPARATOR, array( BCCL_DIR, 'bccl-licenses.php' ) ) );
 
 
 /*
