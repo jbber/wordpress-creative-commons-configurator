@@ -7,6 +7,8 @@ Version: 1.5.0
 Author: George Notaras
 Author URI: http://www.g-loaded.eu/
 License: Apache License v2
+Text Domain: cc-configurator
+Domain Path: /languages/
 */
 
 /**
