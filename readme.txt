@@ -1,7 +1,7 @@
 === Creative Commons Configurator ===
 Contributors: gnotaras
 Donate link: http://bit.ly/1aoPaow
-Tags: cc, license, metadata, legal, creative, commons, seo, attribution, copyright, cc license, creative commons, rights, copyright
+Tags: cc, cc0, license, public domain, metadata, legal, creative, commons, seo, attribution, copyright, cc license, creative commons, cc zero, rights, copyright
 Requires at least: 2.7
 Tested up to: 3.7.1
 Stable tag: 1.5.0
