@@ -72,25 +72,18 @@ add_filter( 'plugin_action_links', 'bccl_plugin_actions', 10, 2 );
 
 
 
-
-
-
-function bccl_add_placeholders($data, $what = "html") {
-    if (!(trim($data))) { return ""; }
-    if ($what = "html") {
-        return sprintf( PHP_EOL . "<!-- Creative Commons License -->" . PHP_EOL . "%s" . PHP_EOL . "<!-- /Creative Commons License -->" . PHP_EOL , trim($data) );
-    } else {
-        return sprintf( PHP_EOL . "<!--" . PHP_EOL . "%s" . PHP_EOL . "-->" . PHP_EOL, trim($data) );
-    }
-}
-
-
+/**
+ * Returns Full TEXT hyperlink to License <a href=...>...</a>
+ */
 function bccl_get_license_text_hyperlink() {
-    /*
-    Returns Full TEXT hyperlink to License <a href=...>...</a>
-    */
+
     $cc_settings = get_option("cc_settings");
-    if (!$cc_settings) { return ""; }
+
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
+
     $license_url = $cc_settings["license_url"];
     $license_name = $cc_settings["license_name"];
     
@@ -99,30 +92,27 @@ function bccl_get_license_text_hyperlink() {
 }
 
 
-function bccl_license_text_hyperlink() {
-    /*
-    Displays Full TEXT hyperlink to License <a href=...>...</a>
-    */
-    echo bccl_add_placeholders(bccl_get_license_text_hyperlink());
-}
-
-
+/**
+ * Returns Full IMAGE hyperlink to License <a href=...><img.../></a>
+ *
+ * Creative Commons Icon Selection
+ * "0" : 88x31.png
+ * "1" : http://creativecommons.org/images/public/somerights20.png
+ * "2" : 80x15.png
+ *
+ * CSS customization via "cc-button" class.
+ */
 function bccl_get_license_image_hyperlink($button = "default") {
-    /*
-    Returns Full IMAGE hyperlink to License <a href=...><img.../></a>
-    
-    Creative Commons Icon Selection
-    "0" : 88x31.png
-    "1" : http://creativecommons.org/images/public/somerights20.png
-    "2" : 80x15.png
 
-    CSS customization via "cc-button" class.
-    */
-    
     global $default_button;
     
     $cc_settings = get_option("cc_settings");
-    if (!$cc_settings) { return ""; }
+
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
+
     $license_url = $cc_settings["license_url"];
     $license_name = $cc_settings["license_name"];
     $license_button = $cc_settings["license_button"];
@@ -156,188 +146,248 @@ function bccl_get_license_image_hyperlink($button = "default") {
 }
 
 
-function bccl_license_image_hyperlink($button = "default") {
-    /*
-    Displays Full IMAGE hyperlink to License <a href=...><img...</a>
-    */
-    echo bccl_add_placeholders(bccl_get_license_image_hyperlink($button));
-}
-
-
+/**
+ * Returns only the license URL.
+ */
 function bccl_get_license_url() {
-    /*
-    Returns only the license URL.
-    */
     $cc_settings = get_option("cc_settings");
-    if (!$cc_settings) { return ""; }
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
     return $cc_settings["license_url"];
 }
 
+
+/**
+ * Returns only the license deed URL.
+ */
 function bccl_get_license_deed_url() {
-    /*
-    Returns only the license deed URL.
-    */
     $cc_settings = get_option("cc_settings");
-    if (!$cc_settings) { return ""; }
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
     return $cc_settings["deed_url"];
 }
 
 
-function bccl_license_summary($width = "100%", $height = "600px", $css_class= "cc-frame") {
-    /*
-    Displays the licence summary page from creative commons in an iframe
-    
-    */
-    printf('
-        <iframe src="%s" frameborder="0" width="%s" height="%s" class="%s"></iframe>
-        ', bccl_get_license_url(), $width, $height, $css_class);
-}
-
-
-function bccl_license_legalcode($width = "100%", $height = "600px", $css_class= "cc-frame") {
-    /*
-    Displays the licence summary page from creative commons in an iframe
-    */
-    printf('
-        <iframe src="%slegalcode" frameborder="0" width="%s" height="%s" class="%s"></iframe>
-        ', bccl_get_license_url(), $width, $height, $css_class);
-}
-
-
+/**
+ * Returns the full HTML code of the license
+ */
 function bccl_get_full_html_license($button = "default") {
-    /*
-    Returns the full HTML code of the license
-    */    
+    $cc_settings = get_option("cc_settings");
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
     return bccl_get_license_image_hyperlink($button) . "<br />" . bccl_get_license_text_hyperlink();
 }
 
 
-function bccl_full_html_license($button = "default") {
-    /*
-    Displays the full HTML code of the license
-    */    
-    echo bccl_add_placeholders(bccl_get_full_html_license($button));
+/**
+ *  Return license text for widget
+ */
+function bccl_get_widget_output() {
+
+    global $post;
+
+    $widget_html = '';
+
+    $cc_settings = get_option("cc_settings");
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
+
+    // Get content specific license from the custom field
+    $bccl_license = get_post_meta( $post->ID, '_bccl_license', true );
+    if ( empty( $bccl_license ) ) {
+        // Set to default
+        $bccl_license = 'default';
+    }
+
+    // DEFAULT LICENSE
+    // If no custom license has been set for this content
+    if ( $bccl_license == 'default' ) {
+        $widget_html = bccl_get_license_image_hyperlink("default") . "<br /><br />" . bccl_get_license_text_hyperlink();
+    }
+
+    // CC0
+    elseif ( $bccl_license == 'cc0' ) {
+
+        $license = bccl_get_license( 'cc0' );
+
+        // TODO: fix this. Make up your mind 1) Use Partner Interface 2) Drop down menu for license selection. THEN create a function that creates the image link!!
+        // License button inclusion
+        $button_code = '';
+        if ( $cc_settings["cc_body_img"] == '1' ) {
+            if (is_ssl()) {
+                $license['button_url'] = str_replace('http://', 'https://', $license['button_url']);
+            }
+            $button_code = sprintf( "<a rel=\"license\" href=\"%s\"><img alt=\"%s\" src=\"%s\" class=\"cc-button\" /></a><br />", $license['url'], 'CC0', $license['button_url'] );
+            $button_code .= '<br />';
+        }
+
+        $license_text = $license['text'];
+
+        $widget_html = $button_code . $license_text;
+    }
+    
+    // ARR
+    elseif ( $bccl_license == 'arr' ) {
+        $widget_html = '';
+    }
+
+    // Manual licensing
+    elseif ( $bccl_license == 'manual' ) {
+        $widget_html = '';
+    }
+
+    // Allow filtering of the widget HTML
+    $widget_html = apply_filters( 'bccl_widget_html', $widget_html );
+
+    return $widget_html;
 }
 
 
-function bccl_get_license_block($work = "", $css_class = "", $show_button = "default", $button = "default") {
-    /*
-    This function should not be used in template tags.
+/**
+ * This function should not be used in template tags.
+ *
+ * $work: The work that is licensed can be defined by the user.
+ * $show_button: (default, yes, no) - no explanation (TODO possibly define icon URL)
+ * $button: The user can se the desired button (hidden feature): "0", "1", "2"
+ *
+ */
+function bccl_get_license_block( $work='', $css_class='', $show_button='default', $button='default' ) {
     
-    $work: The work that is licensed can be defined by the user.
-    
-    $show_button: (default, yes, no) - no explanation (TODO possibly define icon URL)
-    
-    $button: The user can se the desired button (hidden feature): "0", "1", "2"
-    
-    */
+    global $post;
 
     $cc_block = "LICENSE BLOCK ERROR";
     $cc_settings = get_option("cc_settings");
-    if (!$cc_settings) { return ""; }
-    
+
+    // If there is no global license, stop here
+    // Since this may be called from the templates, we perform this check here once again.
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
+
     // Set CSS class
     if (empty($css_class)) {
-        $css_class = "cc-block";
+        $css_class = 'cc-block';
     }
-    
-    // License button inclusion
-    $button_code = '';
-    if ($show_button == "default") {
-        if ($cc_settings["cc_body_img"]) {
-            $button_code = bccl_get_license_image_hyperlink($button) . "<br />";
-        }
-    } elseif ($show_button == "yes") {
-        $button_code = bccl_get_license_image_hyperlink($button) . "<br />";
-    } elseif ($show_button == "no") {
-        $button_code = "";
-    } else {
-        $button_code = "ERROR";
-    }
-    
-    // License block pre/after text
-    $pre_text = '';
-    // $pre_text = 'Copyright &copy; ' . get_the_date('Y') . ' - Some Rights Reserved' . '<br />';
-    $pre_text = apply_filters( 'bccl_license_block_pre', $pre_text );
-    $after_text = '';
-    $after_text = apply_filters( 'bccl_license_block_after', $after_text );
 
-    // Work analysis
-    if ( empty($work) ) {
-        // Proceed only if the user has not defined the work.
-        if ( $cc_settings["cc_extended"] ) {
+    // Get content specific license from the custom field
+    $bccl_license = get_post_meta( $post->ID, '_bccl_license', true );
+    if ( empty( $bccl_license ) ) {
+        // Set to default
+        $bccl_license = 'default';
+    }
+
+    // DEFAULT LICENSE
+    // If no custom license has been set for this content
+    if ( $bccl_license == 'default' ) {
+
+        // License button inclusion
+        $button_code = '';
+        if ($show_button == "default") {
+            if ($cc_settings["cc_body_img"]) {
+                $button_code = bccl_get_license_image_hyperlink($button) . "<br />";
+            }
+        } elseif ($show_button == "yes") {
+            $button_code = bccl_get_license_image_hyperlink($button) . "<br />";
+        } elseif ($show_button == "no") {
+            $button_code = "";
+        } else {
+            $button_code = "ERROR";
+        }
+    
+        // Work analysis
+        if ( empty($work) ) {
+            // Proceed only if the user has not defined the work.
+            if ( $cc_settings["cc_extended"] == '1' ) {
+                $creator = bccl_get_the_creator($cc_settings["cc_creator"]);
+                $author_archive_url = get_author_posts_url( get_the_author_meta( 'ID' ) );
+                $work = "<em><a href=\"" . get_permalink() . "\">" . get_the_title() . "</a></em>";
+                $by = "<em><a href=\"" . $author_archive_url . "\">" . $creator . "</a></em>";
+                $work = sprintf("%s %s %s", $work, __("by", 'cc-configurator'), $by);
+            } else {
+                $work = __('This work', 'cc-configurator');
+            }
+        }
+        $work .= sprintf(", ".__('unless otherwise expressly stated', 'cc-configurator').", ".__('is licensed under a', 'cc-configurator')." %s.", bccl_get_license_text_hyperlink());
+    
+        // Additional Permissions
+        if ( ! empty( $cc_settings["cc_perm_url"] ) ) {
+            $additional_perms = " ".__('Terms and conditions beyond the scope of this license may be available at', 'cc-configurator')." <a href=\"" . $cc_settings["cc_perm_url"] . "\">" . $_SERVER["HTTP_HOST"] . "</a>.";
+        } else {
+            $additional_perms = "";
+        }
+
+        $license_text = $work . $additional_perms;
+        // $pre_text = 'Copyright &copy; ' . get_the_date('Y') . ' - Some Rights Reserved' . '<br />';
+        $license_text = apply_filters( 'bccl_cc_license_text', $license_text );
+
+        $cc_block = sprintf( "<p class=\"%s\">%s%s</p>", $css_class, $button_code, $license_text );
+
+    }
+
+    // CC0
+    elseif ( $bccl_license == 'cc0' ) {
+
+        $license = bccl_get_license( 'cc0' );
+
+        // License button inclusion
+        $button_code = '';
+        if ( $cc_settings["cc_body_img"] == '1' ) {
+            if (is_ssl()) {
+                $license['button_url'] = str_replace('http://', 'https://', $license['button_url']);
+            }
+            $button_code = sprintf( "<a rel=\"license\" href=\"%s\"><img alt=\"%s\" src=\"%s\" class=\"cc-button\" /></a><br />", $license['url'], 'CC0', $license['button_url'] );
+        }
+
+        if ( $cc_settings["cc_extended"] == '1' ) {
             $creator = bccl_get_the_creator($cc_settings["cc_creator"]);
             $author_archive_url = get_author_posts_url( get_the_author_meta( 'ID' ) );
-            $work = "<em><a href=\"" . get_permalink() . "\">" . get_the_title() . "</a></em>";
-            $by = "<em><a href=\"" . $author_archive_url . "\">" . $creator . "</a></em>";
-            $work = sprintf("%s %s %s", $work, __("by", 'cc-configurator'), $by);
+            $creator_link = "<em><a href=\"" . $author_archive_url . "\">" . $creator . "</a></em>";
+            $work_link = "<em><a href=\"" . get_permalink() . "\">" . get_the_title() . "</a></em>";
+            $license_text = sprintf( $license['extended_text'], $creator_link, $work_link );
         } else {
-            $work = __('This work', 'cc-configurator');
+            $license_text = $license['text'];
         }
+
+        $license_text = apply_filters( 'bccl_cc0_license_text', $license_text );
+
+        $cc_block = sprintf("<p class=\"%s\">%s%s</p>", $css_class, $button_code, $license_text);
     }
-    $work .= sprintf(", ".__('unless otherwise expressly stated', 'cc-configurator').", ".__('is licensed under a', 'cc-configurator')." %s.", bccl_get_license_text_hyperlink());
-    
-    // Additional Permissions
-    if ( $cc_settings["cc_perm_url"] ) {
-        $additional_perms = " ".__('Terms and conditions beyond the scope of this license may be available at', 'cc-configurator')." <a href=\"" . $cc_settings["cc_perm_url"] . "\">" . $_SERVER["HTTP_HOST"] . "</a>.";
-    } else {
-        $additional_perms = "";
+
+    // ARR
+    elseif ( $bccl_license == 'arr' ) {
+
+        $license = bccl_get_license( 'arr' );
+
+        $license_text = sprintf( $license['text'], get_the_date('Y') );
+
+        // Additional Permissions
+        if ( ! empty( $cc_settings["cc_perm_url"] ) ) {
+            $additional_perms = $license['additional_perms_text'] . " <a href=\"" . $cc_settings["cc_perm_url"] . "\">" . $cc_settings["cc_perm_url"] . "</a>.";
+        } else {
+            $additional_perms = "";
+        }
+
+        $license_text = $license_text . $additional_perms;
+
+        $license_text = apply_filters( 'bccl_arr_license_text', $license_text );
+
+        $cc_block = sprintf( "<p class=\"%s\">%s</p>", $css_class, $license_text );
     }
-    
-    // $cc_block = sprintf("<div class=\"%s\">%s%s%s</div>", $css_class, $button_code, $work, $additional_perms);
-    $cc_block = sprintf("<p class=\"%s\">%s%s%s%s%s</p>", $css_class, $button_code, $pre_text, $work, $additional_perms, $after_text);
+
+    // NO LICENSE
+    elseif ( $bccl_license == 'manual' ) {
+        $cc_block = '';
+    }
+
     return $cc_block;
-}
-
-
-function bccl_license_block($work = "", $css_class = "", $show_button = "default", $button = "default") {
-    /*
-    $work: The work that is licensed can be defined by the user.
-    $css_class : The user can define the CSS class that will be used to
-    $show_button: (default, yes, no)
-    format the license block. (if empty, the default cc-block is used)
-    */
-    echo bccl_add_placeholders(bccl_get_license_block($work, $css_class, $show_button, $button));
-}
-
-
-
-
-function bccl_get_creator_pool() {
-    $creator_arr = array(
-        "blogname"    => __('Blog Name', 'cc-configurator'),
-        "firstlast"    => __('First + Last Name', 'cc-configurator'),
-        "lastfirst"    => __('Last + First Name', 'cc-configurator'),
-        "nickname"    => __('Nickname', 'cc-configurator'),
-        "displayedname"    => __('Displayed Name', 'cc-configurator'),
-        );
-    return $creator_arr;
-}
-
-
-function bccl_get_the_creator($who) {
-    /*
-    Return the creator/publisher of the licensed work according to the user-defined option (cc-creator)
-    */
-    $author_name = '';
-    if ($who == "blogname") {
-        $author_name = get_bloginfo("name");
-    } elseif ($who == "firstlast") {
-        $author_name = get_the_author_meta('first_name') . " " . get_the_author_meta('last_name');
-    } elseif ($who == "lastfirst") {
-        $author_name = get_the_author_meta('last_name') . " " . get_the_author_meta('first_name');
-    } elseif ($who == "nickname") {
-        $author_name = get_the_author_meta('nickname');
-    } elseif ($who == "displayedname") {
-        $author_name = get_the_author_meta('display_name');
-    } else {
-        $author_name = get_the_author_meta('display_name');
-    }
-    // If we do not have an author name, revert to the display name.
-    if ( trim($author_name) == '' ) {
-        return get_the_author();
-    }
-    return $author_name;
 }
 
 
@@ -353,57 +403,85 @@ function bccl_add_to_header() {
      * not disabled internal license block styling
      * if it is single-post view
     */
+    $post = get_queried_object();
+
     $cc_settings = get_option("cc_settings");
+
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
 
     if ( is_singular() && ! is_front_page() ) { // The license link is not appended to static front page content.
 
-        // If the user has enabled the inclusion of the link in the head
-        if ( ! empty($cc_settings["license_url"]) && $cc_settings["cc_head"] == "1" ) {
-            echo PHP_EOL . "<!-- Creative Commons License added by Creative-Commons-Configurator plugin for WordPress -->" . PHP_EOL;
-            // Adds a link element with "license" relation in the web page HEAD area.
-            echo "<link rel=\"license\" type=\"text/html\" href=\"" . bccl_get_license_url() . "\" />" . PHP_EOL . PHP_EOL;
-        }
+        // Print our comment
+        echo PHP_EOL . "<!-- BEGIN Creative Commons License added by Creative-Commons-Configurator plugin for WordPress -->" . PHP_EOL;
 
-        // If the license block has not been enabled for this type, return and do not print our style
-        if ( is_attachment() ) {
-            if ( $cc_settings["cc_body_attachments"] != "1" ) {
-                return;
-            }
-        } elseif ( is_page() ) {
-            if ( $cc_settings["cc_body_pages"] != "1" ) {
-                return;
-            }
-        } elseif ( is_single() ) {
-            if ( $cc_settings["cc_body"] != "1" ) {
-                return;
-            }
-        }
-
-        // If the user has not deactivated our internal style, print it too
+        // Internal style. If the user has not deactivated our internal style, print it too
         if ( $cc_settings["cc_no_style"] != "1" ) {
             // Adds style for the license block
             $color = $cc_settings["cc_color"];
             $bgcolor = $cc_settings["cc_bgcolor"];
             $brdrcolor = $cc_settings["cc_brdr_color"];
             $bccl_default_block_style = "clear: both; width: 90%; margin: 8px auto; padding: 4px; text-align: center; border: 1px solid $brdrcolor; color: $color; background-color: $bgcolor;";
-            $style = "<style type=\"text/css\"><!--" . PHP_EOL . "p.cc-block { $bccl_default_block_style }" . PHP_EOL . "--></style>" . PHP_EOL . PHP_EOL;
+            $style = "<style type=\"text/css\"><!--" . PHP_EOL . "p.cc-block { $bccl_default_block_style }" . PHP_EOL . "--></style>" . PHP_EOL;
             echo $style;
         }
+
+        // If the addition of data in the head section has been enabled
+        if ( $cc_settings["cc_head"] == "1" ) {
+
+            // Get content specific license from the custom field
+            $bccl_license = get_post_meta( $post->ID, '_bccl_license', true );
+            if ( empty( $bccl_license ) ) {
+                // Set to default
+                $bccl_license = 'default';
+            }
+
+            // DEFAULT LICENSE
+            // If no custom license has been set for this content
+            if ( $bccl_license == 'default' ) {
+                // Adds a link element with "license" relation in the web page HEAD area.
+                echo "<link rel=\"license\" type=\"text/html\" href=\"" . bccl_get_license_url() . "\" />";
+            }
+
+            // CC0
+            elseif ( $bccl_license == 'cc0' ) {
+                $license = bccl_get_license( 'cc0' );
+                // Adds a link element with "license" relation in the web page HEAD area.
+                echo "<link rel=\"license\" type=\"text/html\" href=\"" . $license['url'] . "\" />";
+            }
+
+        }
+
+        // Closing comment
+        echo PHP_EOL . "<!-- END Creative Commons License added by Creative-Commons-Configurator plugin for WordPress -->" . PHP_EOL;
     }
 }
 
 
+
+/**
+ * Adds the CC RSS module namespace declaration.
+ */
 function bccl_add_cc_ns_feed() {
-    /*
-    Adds the CC RSS module namespace declaration.
-    */
+
     $cc_settings = get_option("cc_settings");
-    if (!$cc_settings) { return ""; }
+
+    // If there is no global license, stop here
+    if ( empty($cc_settings['license_url']) ) {
+        return '';
+    }
+
     if ( $cc_settings["cc_feed"] == "1" ) {
         echo "xmlns:creativeCommons=\"http://backend.userland.com/creativeCommonsRssModule\"" . PHP_EOL;
     }
 }
 
+
+/**
+ * Adds the CC URL to the feed.
+ */
 function bccl_add_cc_element_feed() {
 
     $cc_settings = get_option("cc_settings");
