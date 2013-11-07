@@ -7,6 +7,8 @@ REL_FILES = [
     'bccl-settings.php',
     'bccl-admin-panel.php',
     'bccl-template-tags.php',
+    'bccl-utils.php',
+    'bccl-licenses.php',
     'LICENSE',
     'NOTICE',
     'README',
