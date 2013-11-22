@@ -4,7 +4,7 @@ Donate link: http://bit.ly/1aoPaow
 Tags: cc, cc0, license, public domain, metadata, legal, creative, commons, seo, attribution, copyright, cc license, creative commons, cc zero, rights, copyright
 Requires at least: 2.7
 Tested up to: 3.7.1
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -179,6 +179,8 @@ You can find the bug tracker at the [Creative-Commons-Configurator Development w
 
 In the following list there are links to the changelog of each release:
 
+- [1.5.2](http://www.codetrax.org/versions/200)
+ - Updated translations (thanks: Jani Uusitalo, bzg, Matthias Heil, alvaroto, bizover)
 - [1.5.1](http://www.codetrax.org/versions/133)
  - Some license customization on a per post basis has been implemented (options: use default, opt-out, CC0, ARR)
  - Refactoring.
