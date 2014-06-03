@@ -293,7 +293,7 @@ msgid ""
 "more. You can still format the license block via your own CSS. The <em>cc-"
 "block</em> and <em>cc-button</em> classes have been reserved for formatting "
 "the license block and the license button respectively."
-msgstr "Déactiver la mise en forme interne du bloc de licence.  Quand cette mise en forme est désactivée, les choix de couleur faits au-dessus ne sont plus pris en compte.  Vous pouvez toujours mettre en forme le bloc de licence via votre propre CSS.  Les classes <em>cc-block</em> et <em>cc-button</em> sont réservées pour la mise en forme du bloc de licence et du bouton de licence, respectivement."
+msgstr "Désactiver la mise en forme interne du bloc de licence.  Quand cette mise en forme est désactivée, les choix de couleur faits au-dessus ne sont plus pris en compte.  Vous pouvez toujours mettre en forme le bloc de licence via votre propre CSS.  Les classes <em>cc-block</em> et <em>cc-button</em> sont réservées pour la mise en forme du bloc de licence et du bouton de licence, respectivement."
 
 #: bccl-admin-panel.php:386 bccl-admin-panel.php:389
 msgid "Donations"
